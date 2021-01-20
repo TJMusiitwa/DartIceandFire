@@ -32,8 +32,13 @@ class BooksScreen extends ConsumerWidget {
                   title: Text(book.name),
                   subtitle: Text(
                       "Released:${book.released.toString().split(' ')[0]}\nPages:${book.numberOfPages.toString()}"),
-                  onTap: () => Navigator.push(context,
-                      MaterialPageRoute(builder: (_) => BookDetails(book.url))),
+                  onTap: () => Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (_) => BookDetails(
+                                details: book,
+                              ),
+                          fullscreenDialog: true)),
                 ),
               );
             },

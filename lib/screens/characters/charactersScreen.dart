@@ -1,3 +1,4 @@
+import 'package:dart_ice_and_fire/screens/characters/characterDetails.dart';
 import 'package:dart_ice_and_fire/utilities/charactersPagination.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -41,6 +42,13 @@ class CharactersScreen extends ConsumerWidget {
                         ? character.name
                         : character.aliases.first),
                     subtitle: Text(character.culture ?? ''),
+                    onTap: () => Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (_) => CharacterDetails(
+                                  details: character,
+                                ),
+                            fullscreenDialog: true)),
                   ),
                 );
               },

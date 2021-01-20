@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../moreScreen.dart';
+import 'houseDetails.dart';
 
 class HousessScreen extends ConsumerWidget {
   @override
@@ -41,6 +42,13 @@ class HousessScreen extends ConsumerWidget {
                   child: ListTile(
                     title: Text(house.name),
                     subtitle: Text(house.region ?? ''),
+                    onTap: () => Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (_) => HouseDetails(
+                                  details: house,
+                                ),
+                            fullscreenDialog: true)),
                   ),
                 );
               },
