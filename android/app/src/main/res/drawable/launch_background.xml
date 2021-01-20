@@ -7,6 +7,6 @@
     <item>
         <bitmap
             android:gravity="center"
-            android:src="@mipmap/stark-icon" />
+            android:src="@mipmap/stark_icon" />
     </item>
 </layer-list>
