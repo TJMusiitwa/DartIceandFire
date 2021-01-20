@@ -28,6 +28,7 @@ dependencies:
   dio_cache_interceptor: ^0.6.0
   flutter_riverpod: ^0.12.2
   get_it: ^5.0.4
+  search_page: ^1.4.0
   url_launcher: ^5.7.10
 
 dev_dependencies:
@@ -38,7 +39,7 @@ dev_dependencies:
 flutter_icons:
   android: false
   ios: true
-  image_path: "/Users/jtm/Downloads/Stark-icon.png"  
+  image_path: "/Users/jtm/Downloads/Stark-icon.png"
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

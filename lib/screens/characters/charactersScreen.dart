@@ -15,12 +15,28 @@ class CharactersScreen extends ConsumerWidget {
           centerTitle: true,
           title: Text('Characters'),
           actions: [
-            IconButton(
-                icon: Icon(Icons.search_sharp),
-                onPressed: () {
-                  showSearch(
-                      context: context, delegate: CustomSearchDelegate());
-                }),
+            // IconButton(
+            //     icon: Icon(Icons.search_sharp),
+            //     onPressed: () {
+            //       showSearch(
+            //           context: context,
+            //           delegate: SearchPage(
+            //             builder: (character) => ListTile(
+            //               title: Text(character.name),
+            //             ),
+            //             itemStartsWith: true,
+            //             filter: (character) =>
+            //                 [character.name, character.aliases],
+            //             items: paginationState.characters.,
+            //             searchLabel: 'Search for your favourite characters',
+            //             suggestion: Center(
+            //               child: Text('Search by name or alias'),
+            //             ),
+            //             failure: Center(
+            //               child: Text('No character found'),
+            //             ),
+            //           ));
+            //     }),
             IconButton(
                 icon: Icon(Icons.settings_sharp),
                 onPressed: () => Navigator.push(
@@ -55,52 +71,5 @@ class CharactersScreen extends ConsumerWidget {
             ),
           );
         }));
-  }
-}
-
-class CustomSearchDelegate extends SearchDelegate {
-  @override
-  List<Widget> buildActions(BuildContext context) {
-    return [
-      IconButton(
-        icon: Icon(Icons.clear_sharp),
-        onPressed: () {
-          query = '';
-        },
-      )
-    ];
-  }
-
-  @override
-  Widget buildLeading(BuildContext context) {
-    return IconButton(
-      icon: Icon(Icons.arrow_back),
-      onPressed: () {
-        close(context, null);
-      },
-    );
-  }
-
-  @override
-  Widget buildResults(BuildContext context) {
-    return ListView();
-  }
-
-  @override
-  Widget buildSuggestions(BuildContext context) {
-    return ListView(
-      shrinkWrap: true,
-      children: [
-        ListTile(
-          title: Text('Jon Snow'),
-        ),
-        ListTile(
-          title: Text('Arya Stark'),
-        ),
-        ListTile(
-          title: Text('Lord Baelish'),
-        ),
-      ],
-    );
   }
 }

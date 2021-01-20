@@ -15,7 +15,7 @@ class HousessScreen extends ConsumerWidget {
         centerTitle: true,
         title: Text('Houses'),
         actions: [
-          IconButton(icon: Icon(Icons.search_sharp), onPressed: () {}),
+          //IconButton(icon: Icon(Icons.search_sharp), onPressed: () {}),
           IconButton(
               icon: Icon(Icons.settings_sharp),
               onPressed: () => Navigator.push(
