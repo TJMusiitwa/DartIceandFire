@@ -4,15 +4,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class HouseDetails extends StatelessWidget {
-  final Houses details;
+  final Houses? details;
 
-  const HouseDetails({Key key, this.details}) : super(key: key);
+  const HouseDetails({Key? key, this.details}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          details.name,
+          details!.name!,
           overflow: TextOverflow.ellipsis,
         ),
       ),
@@ -26,7 +26,7 @@ class HouseDetails extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text('Region'),
-                Text(details.region == "" ? 'N/A' : details.region)
+                Text(details!.region == '' ? 'N/A' : details!.region!)
               ],
             ),
             SizedBox(
@@ -37,7 +37,7 @@ class HouseDetails extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text('Words'),
-                Text(details.words == "" ? 'N/A' : details.words)
+                Text(details!.words == '' ? 'N/A' : details!.words!)
               ],
             ),
             SizedBox(
@@ -48,7 +48,7 @@ class HouseDetails extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text('Founded'),
-                Text(details.founded == "" ? 'N/A' : details.founded)
+                Text(details!.founded == '' ? 'N/A' : details!.founded!)
               ],
             ),
             SizedBox(
@@ -59,7 +59,7 @@ class HouseDetails extends StatelessWidget {
             //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
             //   children: [
             //     Text('Current Lord'),
-            //     Text(details.currentLord == "" ? 'N/A' : details.currentLord)
+            //     Text(details.currentLord == '' ? 'N/A' : details.currentLord)
             //   ],
             // ),
             // SizedBox(
@@ -70,9 +70,9 @@ class HouseDetails extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text('Titles'),
-                Text(details.titles.first == "" || details.titles.isEmpty
+                Text(details!.titles!.first == '' || details!.titles!.isEmpty
                     ? 'N/A'
-                    : details.titles.first)
+                    : details!.titles!.first)
               ],
             ),
             SizedBox(
@@ -83,9 +83,9 @@ class HouseDetails extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text('Seats'),
-                Text(details.seats.isEmpty && details.seats.first == ""
+                Text(details!.seats!.isEmpty && details!.seats!.first == ''
                     ? 'No Seats'
-                    : details.seats.first)
+                    : details!.seats!.first)
               ],
             ),
             Divider(
@@ -102,21 +102,21 @@ class HouseDetails extends StatelessWidget {
             Consumer(
               builder: (context, watch, child) {
                 var swornMembers =
-                    watch(characterPaginationController.state).characters;
+                    watch(characterPaginationController).characters;
                 final paginationController =
-                    watch(characterPaginationController);
+                    watch(characterPaginationController.notifier);
                 return Wrap(
                   spacing: 6,
                   runSpacing: 6,
                   children: List<Widget>.generate(
-                    details.swornMembers.length,
+                    details!.swornMembers!.length,
                     (index) {
                       paginationController.handleScrollWithIndex(index);
                       return Chip(
-                          label: Text(swornMembers[index].name.isNotEmpty
-                              ? swornMembers[index].name
-                              : swornMembers[index].aliases.first.isNotEmpty
-                                  ? swornMembers[index].aliases.first
+                          label: Text(swornMembers![index].name!.isNotEmpty
+                              ? swornMembers[index].name!
+                              : swornMembers[index].aliases!.first.isNotEmpty
+                                  ? swornMembers[index].aliases!.first
                                   : ''));
                     },
                   ),

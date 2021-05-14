@@ -8,8 +8,8 @@ import '../moreScreen.dart';
 class CharactersScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, ScopedReader watch) {
-    final paginationController = watch(characterPaginationController);
-    final paginationState = watch(characterPaginationController.state);
+    final paginationController = watch(characterPaginationController.notifier);
+    final paginationState = watch(characterPaginationController);
     return Scaffold(
         appBar: AppBar(
           centerTitle: true,
@@ -48,15 +48,15 @@ class CharactersScreen extends ConsumerWidget {
             onRefresh: () =>
                 context.refresh(characterPaginationController).getCharacters(),
             child: ListView.builder(
-              itemCount: paginationState.characters.length,
+              itemCount: paginationState.characters!.length,
               itemBuilder: (BuildContext context, int index) {
                 paginationController.handleScrollWithIndex(index);
-                var character = paginationState.characters[index];
+                var character = paginationState.characters![index];
                 return Card(
                   child: ListTile(
-                    title: Text(character.name.isNotEmpty
-                        ? character.name
-                        : character.aliases.first),
+                    title: Text(character.name!.isNotEmpty
+                        ? character.name!
+                        : character.aliases!.first),
                     subtitle: Text(character.culture ?? ''),
                     onTap: () => Navigator.push(
                         context,

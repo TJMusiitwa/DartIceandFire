@@ -4,15 +4,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class BookDetails extends StatelessWidget {
-  final Books details;
+  final Books? details;
 
-  const BookDetails({Key key, this.details}) : super(key: key);
+  const BookDetails({Key? key, this.details}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          details.name,
+          details!.name!,
           overflow: TextOverflow.ellipsis,
         ),
       ),
@@ -25,7 +25,7 @@ class BookDetails extends StatelessWidget {
               Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [Text('Author'), Text(details.authors.first)],
+                children: [Text('Author'), Text(details!.authors!.first)],
               ),
               SizedBox(
                 height: 10,
@@ -35,7 +35,7 @@ class BookDetails extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text('Released'),
-                  Text(details.released.toString().split(' ')[0])
+                  Text(details!.released.toString().split(' ')[0])
                 ],
               ),
               SizedBox(
@@ -46,7 +46,7 @@ class BookDetails extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text('Pages'),
-                  Text(details.numberOfPages.toString())
+                  Text(details!.numberOfPages.toString())
                 ],
               ),
               SizedBox(
@@ -55,7 +55,7 @@ class BookDetails extends StatelessWidget {
               Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [Text('Publisher'), Text(details.publisher)],
+                children: [Text('Publisher'), Text(details!.publisher!)],
               ),
               SizedBox(
                 height: 10,
@@ -74,26 +74,26 @@ class BookDetails extends StatelessWidget {
               Consumer(
                 builder: (context, watch, child) {
                   var charactersAppeared =
-                      watch(characterPaginationController.state).characters;
+                      watch(characterPaginationController).characters;
                   final paginationController =
-                      watch(characterPaginationController);
+                      watch(characterPaginationController.notifier);
                   return Wrap(
                     spacing: 6,
                     runSpacing: 6,
                     children: List<Widget>.generate(
-                      details.characters.length,
+                      details!.characters!.length,
                       (index) {
                         paginationController.handleScrollWithIndex(index);
                         return Chip(
-                            label: Text(charactersAppeared[index]
-                                    .name
+                            label: Text(charactersAppeared![index]
+                                    .name!
                                     .isNotEmpty
-                                ? charactersAppeared[index].name
+                                ? charactersAppeared[index].name!
                                 : charactersAppeared[index]
-                                        .aliases
+                                        .aliases!
                                         .first
                                         .isNotEmpty
-                                    ? charactersAppeared[index].aliases.first
+                                    ? charactersAppeared[index].aliases!.first
                                     : ''));
                       },
                     ),

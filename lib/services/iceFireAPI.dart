@@ -6,12 +6,12 @@ import 'package:dio_cache_interceptor/dio_cache_interceptor.dart';
 
 class IceFireApi {
   final Dio iceFireDio = Dio()
-    ..options.baseUrl = "https://www.anapioficeandfire.com/api"
+    ..options.baseUrl = 'https://www.anapioficeandfire.com/api'
     ..interceptors.add(
       DioCacheInterceptor(
         options: CacheOptions(
-          store: DbCacheStore(),
-          policy: CachePolicy.cacheFirst,
+          store: MemCacheStore(),
+          policy: CachePolicy.forceCache,
           hitCacheOnErrorExcept: [401, 403],
           priority: CachePriority.normal,
           maxStale: const Duration(days: 30),
@@ -33,7 +33,7 @@ class IceFireApi {
     return book;
   }
 
-  Future<List<Houses>> fetchHouses([int page = 1]) async {
+  Future<List<Houses>> fetchHouses([int? page = 1]) async {
     final housesResponse =
         await iceFireDio.get('/houses', queryParameters: {'page': page});
     final houses = housesFromJson(housesResponse.data);
@@ -46,7 +46,7 @@ class IceFireApi {
     return house;
   }
 
-  Future<List<Characters>> fetchCharacters([int page = 1]) async {
+  Future<List<Characters>> fetchCharacters([int? page = 1]) async {
     final charactersResponse =
         await iceFireDio.get('/characters', queryParameters: {'page': page});
     final characters = charactersFromJson(charactersResponse.data);

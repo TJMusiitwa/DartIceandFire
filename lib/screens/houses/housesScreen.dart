@@ -8,8 +8,8 @@ import 'houseDetails.dart';
 class HousessScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, ScopedReader watch) {
-    final paginationController = watch(housesPaginationController);
-    final paginationState = watch(housesPaginationController.state);
+    final paginationController = watch(housesPaginationController.notifier);
+    final paginationState = watch(housesPaginationController);
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
@@ -24,7 +24,7 @@ class HousessScreen extends ConsumerWidget {
       ),
       body: Consumer(
         builder: (context, watch, child) {
-          if (paginationState.houses.isEmpty) {
+          if (paginationState.houses!.isEmpty) {
             return Center(
               child: CircularProgressIndicator(),
             );
@@ -34,13 +34,13 @@ class HousessScreen extends ConsumerWidget {
             onRefresh: () =>
                 context.refresh(housesPaginationController).getHouses(),
             child: ListView.builder(
-              itemCount: paginationState.houses.length,
+              itemCount: paginationState.houses!.length,
               itemBuilder: (BuildContext context, int index) {
                 paginationController.handleScrollWithIndex(index);
-                var house = paginationState.houses[index];
+                var house = paginationState.houses![index];
                 return Card(
                   child: ListTile(
-                    title: Text(house.name),
+                    title: Text(house.name!),
                     subtitle: Text(house.region ?? ''),
                     onTap: () => Navigator.push(
                         context,

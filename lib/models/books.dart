@@ -28,43 +28,43 @@ class Books {
     this.povCharacters,
   });
 
-  String url;
-  String name;
-  String isbn;
-  List<String> authors;
-  int numberOfPages;
-  String publisher;
-  String country;
-  String mediaType;
-  DateTime released;
-  List<String> characters;
-  List<String> povCharacters;
+  String? url;
+  String? name;
+  String? isbn;
+  List<String>? authors;
+  int? numberOfPages;
+  String? publisher;
+  String? country;
+  String? mediaType;
+  DateTime? released;
+  List<String>? characters;
+  List<String>? povCharacters;
 
   factory Books.fromJson(Map<String, dynamic> json) => Books(
-        url: json["url"],
-        name: json["name"],
-        isbn: json["isbn"],
-        authors: List<String>.from(json["authors"].map((x) => x)),
-        numberOfPages: json["numberOfPages"],
-        publisher: json["publisher"],
-        country: json["country"],
-        mediaType: json["mediaType"],
-        released: DateTime.parse(json["released"]).toLocal(),
-        characters: List<String>.from(json["characters"].map((x) => x)),
-        povCharacters: List<String>.from(json["povCharacters"].map((x) => x)),
+        url: json['url'],
+        name: json['name'],
+        isbn: json['isbn'],
+        authors: List<String>.from(json['authors'].map((x) => x)),
+        numberOfPages: json['numberOfPages'],
+        publisher: json['publisher'],
+        country: json['country'],
+        mediaType: json['mediaType'],
+        released: DateTime.parse(json['released']).toLocal(),
+        characters: List<String>.from(json['characters'].map((x) => x)),
+        povCharacters: List<String>.from(json['povCharacters'].map((x) => x)),
       );
 
   Map<String, dynamic> toJson() => {
-        "url": url,
-        "name": name,
-        "isbn": isbn,
-        "authors": List<dynamic>.from(authors.map((x) => x)),
-        "numberOfPages": numberOfPages,
-        "publisher": publisher,
-        "country": country,
-        "mediaType": mediaType,
-        "released": released.toIso8601String(),
-        "characters": List<dynamic>.from(characters.map((x) => x)),
-        "povCharacters": List<dynamic>.from(povCharacters.map((x) => x)),
+        'url': url,
+        'name': name,
+        'isbn': isbn,
+        'authors': List<dynamic>.from(authors!.map((x) => x)),
+        'numberOfPages': numberOfPages,
+        'publisher': publisher,
+        'country': country,
+        'mediaType': mediaType,
+        'released': released!.toIso8601String(),
+        'characters': List<dynamic>.from(characters!.map((x) => x)),
+        'povCharacters': List<dynamic>.from(povCharacters!.map((x) => x)),
       };
 }

@@ -5,14 +5,15 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get_it/get_it.dart';
 
 final characterPaginationController =
-    StateNotifierProvider<CharacterPaginationController>((ref) {
-  final characterPaginationService = ref.read(allCharactersFuture);
+    StateNotifierProvider<CharacterPaginationController, CharactersPagination>(
+        (ref) {
+  final characterPaginationService = ref.read(allCharactersFuture!);
   return CharacterPaginationController(characterPaginationService);
 });
 
 class CharactersPagination {
-  final List<Characters> characters;
-  final int page;
+  final List<Characters>? characters;
+  final int? page;
 
   CharactersPagination({this.characters, this.page});
 
@@ -22,8 +23,8 @@ class CharactersPagination {
         page = 1;
 
   CharactersPagination copyWith({
-    List<Characters> characters,
-    int page,
+    List<Characters>? characters,
+    int? page,
   }) {
     return CharactersPagination(
         characters: characters ?? this.characters, page: page ?? this.page);
@@ -35,7 +36,7 @@ class CharacterPaginationController
   final _charactersService = GetIt.I.get<IceFireApi>();
   CharacterPaginationController(
     _charactersService, [
-    CharactersPagination state,
+    CharactersPagination? state,
   ]) : super(state ?? CharactersPagination.initial()) {
     getCharacters();
   }
@@ -44,8 +45,8 @@ class CharacterPaginationController
     final getCharactersResponse =
         await _charactersService.fetchCharacters(state.page);
     state = state.copyWith(
-        characters: [...state.characters, ...getCharactersResponse],
-        page: state.page + 1);
+        characters: [...state.characters!, ...getCharactersResponse],
+        page: state.page! + 1);
   }
 
   void handleScrollWithIndex(int index) {
@@ -53,7 +54,7 @@ class CharacterPaginationController
     final requestMoreData = itemPosition % 10 == 0 && itemPosition != 0;
     final pageToRequest = itemPosition ~/ 10;
 
-    if (requestMoreData && pageToRequest + 1 >= state.page) {
+    if (requestMoreData && pageToRequest + 1 >= state.page!) {
       getCharacters();
     }
   }

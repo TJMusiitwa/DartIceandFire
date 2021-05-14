@@ -5,14 +5,14 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get_it/get_it.dart';
 
 final housesPaginationController =
-    StateNotifierProvider<HousesPaginationController>((ref) {
-  final housePaginationService = ref.read(allHousesFuture);
+    StateNotifierProvider<HousesPaginationController, HousesPagination>((ref) {
+  final housePaginationService = ref.read(allHousesFuture!);
   return HousesPaginationController(housePaginationService);
 });
 
 class HousesPagination {
-  final List<Houses> houses;
-  final int page;
+  final List<Houses>? houses;
+  final int? page;
 
   HousesPagination({this.houses, this.page});
 
@@ -21,8 +21,8 @@ class HousesPagination {
         page = 1;
 
   HousesPagination copyWith({
-    List<Houses> houses,
-    int page,
+    List<Houses>? houses,
+    int? page,
   }) {
     return HousesPagination(
       houses: houses ?? this.houses,
@@ -36,7 +36,7 @@ class HousesPaginationController extends StateNotifier<HousesPagination> {
 
   HousesPaginationController(
     _housesService, [
-    HousesPagination state,
+    HousesPagination? state,
   ]) : super(state ?? HousesPagination.initial()) {
     getHouses();
   }
@@ -45,10 +45,10 @@ class HousesPaginationController extends StateNotifier<HousesPagination> {
     try {
       final getHousesResponse = await _housesService.fetchHouses(state.page);
       state = state.copyWith(
-          houses: [...state.houses, ...getHousesResponse],
-          page: state.page + 1);
+          houses: [...state.houses!, ...getHousesResponse],
+          page: state.page! + 1);
     } catch (e) {
-      throw (e);
+      rethrow;
     }
   }
 
@@ -57,7 +57,7 @@ class HousesPaginationController extends StateNotifier<HousesPagination> {
     final requestMoreData = itemPosition % 10 == 0 && itemPosition != 0;
     final pageToRequest = itemPosition ~/ 10;
 
-    if (requestMoreData && pageToRequest + 1 >= state.page) {
+    if (requestMoreData && pageToRequest + 1 >= state.page!) {
       getHouses();
     }
   }

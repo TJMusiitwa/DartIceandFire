@@ -5,15 +5,15 @@ import 'package:flutter/material.dart' hide Characters;
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class CharacterDetails extends StatelessWidget {
-  final Characters details;
+  final Characters? details;
 
-  const CharacterDetails({Key key, this.details}) : super(key: key);
+  const CharacterDetails({Key? key, this.details}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          details.name.isNotEmpty ? details.name : details.aliases.first,
+          details!.name!.isNotEmpty ? details!.name! : details!.aliases!.first,
           overflow: TextOverflow.ellipsis,
         ),
       ),
@@ -28,7 +28,7 @@ class CharacterDetails extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
                 Text('Born'),
-                Text(details.born == "" ? 'N/A' : details.born)
+                Text(details!.born == '' ? 'N/A' : details!.born!)
               ],
             ),
             SizedBox(
@@ -39,7 +39,7 @@ class CharacterDetails extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
                 Text('Died'),
-                Text(details.died == "" ? 'N/A' : details.died)
+                Text(details!.died == '' ? 'N/A' : details!.died!)
               ],
             ),
             SizedBox(
@@ -50,7 +50,7 @@ class CharacterDetails extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
                 Text('Gender'),
-                Text(details.gender == "" ? 'N/A' : details.gender)
+                Text(details!.gender == '' ? 'N/A' : details!.gender!)
               ],
             ),
             SizedBox(
@@ -61,7 +61,7 @@ class CharacterDetails extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
                 Text('Culture'),
-                Text(details.culture == "" ? 'N/A' : details.culture)
+                Text(details!.culture == '' ? 'N/A' : details!.culture!)
               ],
             ),
             SizedBox(
@@ -72,7 +72,9 @@ class CharacterDetails extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Text('Titles'),
-                Text(details.titles.first == "" ? 'N/A' : details.titles.first),
+                Text(details!.titles!.first == ''
+                    ? 'N/A'
+                    : details!.titles!.first),
               ],
             ),
             SizedBox(
@@ -83,8 +85,9 @@ class CharacterDetails extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text('Alias'),
-                Text(
-                    details.aliases.first == "" ? 'N/A' : details.aliases.first)
+                Text(details!.aliases!.first == ''
+                    ? 'N/A'
+                    : details!.aliases!.first)
               ],
             ),
             SizedBox(
@@ -100,26 +103,26 @@ class CharacterDetails extends StatelessWidget {
             // ),
 
             Text('House Allegiances'),
-            details.allegiances.isEmpty
+            details!.allegiances!.isEmpty
                 ? Text('No House Allegiance')
                 : Consumer(
                     builder: (context, watch, child) {
                       var housesAlliedTo =
-                          watch(housesPaginationController.state).houses;
+                          watch(housesPaginationController).houses;
                       final paginationController =
-                          watch(housesPaginationController);
+                          watch(housesPaginationController.notifier);
 
                       return Wrap(
                         spacing: 6,
                         runSpacing: 6,
                         children: List<Widget>.generate(
-                          details.allegiances.length,
+                          details!.allegiances!.length,
                           (index) {
                             paginationController.handleScrollWithIndex(index);
                             return Chip(
-                                label: Text(housesAlliedTo[index].name == ""
+                                label: Text(housesAlliedTo![index].name == ''
                                     ? 'N/A'
-                                    : housesAlliedTo[index].name));
+                                    : housesAlliedTo[index].name!));
                           },
                         ),
                       );
@@ -129,20 +132,18 @@ class CharacterDetails extends StatelessWidget {
               height: 10,
             ),
             Text('Book Appearences'),
-            Consumer(
-              builder: (context, watch, child) {
-                var booksAppeared = watch(allBooksFuture).data.value;
-                return Wrap(
-                  spacing: 6,
-                  runSpacing: 6,
-                  runAlignment: WrapAlignment.start,
-                  children: List<Widget>.generate(
-                    details.books.length,
-                    (index) => Chip(label: Text(booksAppeared[index].name)),
-                  ),
-                );
-              },
-            ),
+            Consumer(builder: (context, watch, child) {
+              var booksAppeared = watch(allBooksFuture).data!.value;
+              return Wrap(
+                spacing: 6,
+                runSpacing: 6,
+                runAlignment: WrapAlignment.start,
+                children: List<Widget>.generate(
+                  details!.books!.length,
+                  (index) => Chip(label: Text(booksAppeared[index].name!)),
+                ),
+              );
+            }),
           ],
         ),
       ),
