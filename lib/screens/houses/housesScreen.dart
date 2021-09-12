@@ -13,11 +13,11 @@ class HousessScreen extends ConsumerWidget {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: Text('Houses'),
+        title: const Text('Houses'),
         actions: [
           //IconButton(icon: Icon(Icons.search_sharp), onPressed: () {}),
           IconButton(
-              icon: Icon(Icons.settings_sharp),
+              icon: const Icon(Icons.settings_sharp),
               onPressed: () => Navigator.push(
                   context, MaterialPageRoute(builder: (_) => MoreScreen()))),
         ],
@@ -25,7 +25,7 @@ class HousessScreen extends ConsumerWidget {
       body: Consumer(
         builder: (context, watch, child) {
           if (paginationState.houses!.isEmpty) {
-            return Center(
+            return const Center(
               child: CircularProgressIndicator(),
             );
           }

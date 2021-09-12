@@ -25,46 +25,46 @@ class BookDetails extends StatelessWidget {
               Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [Text('Author'), Text(details!.authors!.first)],
+                children: [const Text('Author'), Text(details!.authors!.first)],
               ),
-              SizedBox(
+              const SizedBox(
                 height: 10,
               ),
               Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text('Released'),
+                  const Text('Released'),
                   Text(details!.released.toString().split(' ')[0])
                 ],
               ),
-              SizedBox(
+              const SizedBox(
                 height: 10,
               ),
               Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text('Pages'),
+                  const Text('Pages'),
                   Text(details!.numberOfPages.toString())
                 ],
               ),
-              SizedBox(
+              const SizedBox(
                 height: 10,
               ),
               Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [Text('Publisher'), Text(details!.publisher!)],
+                children: [const Text('Publisher'), Text(details!.publisher!)],
               ),
-              SizedBox(
+              const SizedBox(
                 height: 10,
               ),
               Divider(
                 height: 1,
                 color: Theme.of(context).primaryColorDark,
               ),
-              SizedBox(
+              const SizedBox(
                 height: 10,
               ),
               Text(

@@ -7,7 +7,7 @@ class MoreScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: Text('❄️ Ice and 🔥 Fire'),
+        title: const Text('❄️ Ice and 🔥 Fire'),
       ),
       body: Padding(
         padding: const EdgeInsets.symmetric(vertical: 15.0, horizontal: 10.0),
@@ -23,32 +23,32 @@ class MoreScreen extends StatelessWidget {
               style:
                   Theme.of(context).textTheme.bodyText2!.copyWith(fontSize: 18),
             ),
-            SizedBox(
+            const SizedBox(
               height: 10,
             ),
             ListTile(
-              title: Text('An API of Ice and Fire'),
-              subtitle: Text(
+              title: const Text('An API of Ice and Fire'),
+              subtitle: const Text(
                   'Data was sourced from the wonderful API of Ice and Fire'),
               trailing: IconButton(
-                icon: Icon(Icons.launch_sharp),
+                icon: const Icon(Icons.launch_sharp),
                 onPressed: () => launch('https://anapioficeandfire.com/'),
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 10,
             ),
             ListTile(
-              title: Text('Project Repository on Github'),
-              subtitle: Text('Check out the code over at Github'),
+              title: const Text('Project Repository on Github'),
+              subtitle: const Text('Check out the code over at Github'),
               trailing: IconButton(
-                icon: Icon(Icons.launch_sharp),
+                icon: const Icon(Icons.launch_sharp),
                 onPressed: () =>
                     launch('https://github.com/TJMusiitwa/DartIceandFire'),
               ),
             ),
             ListTile(
-              title: Text('Open Source Licenses'),
+              title: const Text('Open Source Licenses'),
               onTap: () => showLicensePage(
                 context: context,
                 applicationName: 'Dart Ice and Fire',
@@ -73,7 +73,7 @@ class MoreScreen extends StatelessWidget {
                 ],
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: kBottomNavigationBarHeight,
             )
           ],

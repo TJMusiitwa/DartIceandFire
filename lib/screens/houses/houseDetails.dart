@@ -25,33 +25,33 @@ class HouseDetails extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text('Region'),
+                const Text('Region'),
                 Text(details!.region == '' ? 'N/A' : details!.region!)
               ],
             ),
-            SizedBox(
+            const SizedBox(
               height: 10,
             ),
             Row(
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text('Words'),
+                const Text('Words'),
                 Text(details!.words == '' ? 'N/A' : details!.words!)
               ],
             ),
-            SizedBox(
+            const SizedBox(
               height: 10,
             ),
             Row(
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text('Founded'),
+                const Text('Founded'),
                 Text(details!.founded == '' ? 'N/A' : details!.founded!)
               ],
             ),
-            SizedBox(
+            const SizedBox(
               height: 10,
             ),
             // Row(
@@ -69,20 +69,20 @@ class HouseDetails extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text('Titles'),
+                const Text('Titles'),
                 Text(details!.titles!.first == '' || details!.titles!.isEmpty
                     ? 'N/A'
                     : details!.titles!.first)
               ],
             ),
-            SizedBox(
+            const SizedBox(
               height: 10,
             ),
             Row(
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text('Seats'),
+                const Text('Seats'),
                 Text(details!.seats!.isEmpty && details!.seats!.first == ''
                     ? 'No Seats'
                     : details!.seats!.first)
@@ -92,7 +92,7 @@ class HouseDetails extends StatelessWidget {
               height: 1,
               color: Theme.of(context).primaryColorDark,
             ),
-            SizedBox(
+            const SizedBox(
               height: 10,
             ),
             Text(

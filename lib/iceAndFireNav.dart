@@ -16,7 +16,7 @@ class _IceAndFireNavState extends State<IceAndFireNav> {
     return Scaffold(
       body: screens.elementAt(_currentScreen),
       bottomNavigationBar: BottomNavigationBar(
-        items: [
+        items: const [
           BottomNavigationBarItem(
               icon: Icon(Icons.people_alt_sharp), label: 'Characters'),
           BottomNavigationBarItem(

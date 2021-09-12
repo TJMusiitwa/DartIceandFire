@@ -11,10 +11,10 @@ class BooksScreen extends ConsumerWidget {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: Text('Books'),
+        title: const Text('Books'),
         actions: [
           IconButton(
-              icon: Icon(Icons.settings_sharp),
+              icon: const Icon(Icons.settings_sharp),
               onPressed: () => Navigator.push(
                   context, MaterialPageRoute(builder: (_) => MoreScreen()))),
         ],
@@ -43,8 +43,8 @@ class BooksScreen extends ConsumerWidget {
             },
           ),
         ),
-        loading: () => Center(child: const CircularProgressIndicator()),
-        error: (error, stack) => Center(child: Text('${error.toString()}')),
+        loading: () => const Center(child: CircularProgressIndicator()),
+        error: (error, stack) => Center(child: Text(error.toString())),
       ),
     );
   }

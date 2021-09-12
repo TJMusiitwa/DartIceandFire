@@ -13,7 +13,7 @@ class CharactersScreen extends ConsumerWidget {
     return Scaffold(
         appBar: AppBar(
           centerTitle: true,
-          title: Text('Characters'),
+          title: const Text('Characters'),
           actions: [
             // IconButton(
             //     icon: Icon(Icons.search_sharp),
@@ -38,7 +38,7 @@ class CharactersScreen extends ConsumerWidget {
             //           ));
             //     }),
             IconButton(
-                icon: Icon(Icons.settings_sharp),
+                icon: const Icon(Icons.settings_sharp),
                 onPressed: () => Navigator.push(
                     context, MaterialPageRoute(builder: (_) => MoreScreen()))),
           ],

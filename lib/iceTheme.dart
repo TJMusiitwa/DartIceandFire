@@ -1,45 +1,30 @@
 import 'package:flutter/material.dart';
 
 final ThemeData iceTheme = ThemeData(
-  primarySwatch: MaterialColor(4279642181, {
-    50: Color(0xffecf1f9),
-    100: Color(0xffd8e2f3),
-    200: Color(0xffb2c6e6),
-    300: Color(0xff8ba9da),
-    400: Color(0xff648dce),
-    500: Color(0xff3e70c1),
-    600: Color(0xff315a9b),
-    700: Color(0xff254374),
-    800: Color(0xff192d4d),
-    900: Color(0xff0c1627)
-  }),
   visualDensity: VisualDensity.adaptivePlatformDensity,
   brightness: Brightness.light,
-  primaryColor: Color(0xff162845),
+  primaryColor: const Color(0xff162845),
   primaryColorBrightness: Brightness.dark,
-  primaryColorLight: Color(0xffd8e2f3),
-  primaryColorDark: Color(0xff254374),
-  accentColor: Color(0xff3e70c1),
-  accentColorBrightness: Brightness.dark,
-  canvasColor: Color(0xfff8fcfc),
-  scaffoldBackgroundColor: Color(0xfff8fcfc),
-  bottomAppBarColor: Color(0xffffffff),
-  cardColor: Color(0xffffffff),
-  dividerColor: Color(0x1f000000),
-  highlightColor: Color(0x66bcbcbc),
-  splashColor: Color(0x66c8c8c8),
-  selectedRowColor: Color(0xfff5f5f5),
-  unselectedWidgetColor: Color(0x8a000000),
-  disabledColor: Color(0x61000000),
-  buttonColor: Color(0xffe0e0e0),
-  toggleableActiveColor: Color(0xff315a9b),
-  secondaryHeaderColor: Color(0xffecf1f9),
-  backgroundColor: Color(0xffb2c6e6),
-  dialogBackgroundColor: Color(0xffffffff),
-  indicatorColor: Color(0xff3e70c1),
-  hintColor: Color(0x8a000000),
-  errorColor: Color(0xffd32f2f),
-  buttonTheme: ButtonThemeData(
+  primaryColorLight: const Color(0xffd8e2f3),
+  primaryColorDark: const Color(0xff254374),
+  canvasColor: const Color(0xfff8fcfc),
+  scaffoldBackgroundColor: const Color(0xfff8fcfc),
+  bottomAppBarColor: const Color(0xffffffff),
+  cardColor: const Color(0xffffffff),
+  dividerColor: const Color(0x1f000000),
+  highlightColor: const Color(0x66bcbcbc),
+  splashColor: const Color(0x66c8c8c8),
+  selectedRowColor: const Color(0xfff5f5f5),
+  unselectedWidgetColor: const Color(0x8a000000),
+  disabledColor: const Color(0x61000000),
+  toggleableActiveColor: const Color(0xff315a9b),
+  secondaryHeaderColor: const Color(0xffecf1f9),
+  backgroundColor: const Color(0xffb2c6e6),
+  dialogBackgroundColor: const Color(0xffffffff),
+  indicatorColor: const Color(0xff3e70c1),
+  hintColor: const Color(0x8a000000),
+  errorColor: const Color(0xffd32f2f),
+  buttonTheme: const ButtonThemeData(
     textTheme: ButtonTextTheme.primary,
     minWidth: 88.0,
     height: 36.0,
@@ -73,7 +58,7 @@ final ThemeData iceTheme = ThemeData(
       brightness: Brightness.light,
     ),
   ),
-  textTheme: TextTheme(
+  textTheme: const TextTheme(
     headline1: TextStyle(
       color: Color(0x8a000000),
       fontSize: 96.0,
@@ -153,7 +138,7 @@ final ThemeData iceTheme = ThemeData(
       fontStyle: FontStyle.normal,
     ),
   ),
-  primaryTextTheme: TextTheme(
+  primaryTextTheme: const TextTheme(
     headline1: TextStyle(
       color: Color(0xb3ffffff),
       fontSize: 96.0,
@@ -233,87 +218,7 @@ final ThemeData iceTheme = ThemeData(
       fontStyle: FontStyle.normal,
     ),
   ),
-  accentTextTheme: TextTheme(
-    headline1: TextStyle(
-      color: Color(0xb3ffffff),
-      fontSize: 96.0,
-      fontWeight: FontWeight.w300,
-      fontStyle: FontStyle.normal,
-    ),
-    headline2: TextStyle(
-      color: Color(0xb3ffffff),
-      fontSize: 60.0,
-      fontWeight: FontWeight.w300,
-      fontStyle: FontStyle.normal,
-    ),
-    headline3: TextStyle(
-      color: Color(0xb3ffffff),
-      fontSize: 48.0,
-      fontWeight: FontWeight.w400,
-      fontStyle: FontStyle.normal,
-    ),
-    headline4: TextStyle(
-      color: Color(0xb3ffffff),
-      fontSize: 34.0,
-      fontWeight: FontWeight.w400,
-      fontStyle: FontStyle.normal,
-    ),
-    headline5: TextStyle(
-      color: Color(0xffffffff),
-      fontSize: 24.0,
-      fontWeight: FontWeight.w400,
-      fontStyle: FontStyle.normal,
-    ),
-    headline6: TextStyle(
-      color: Color(0xffffffff),
-      fontSize: 20.0,
-      fontWeight: FontWeight.w500,
-      fontStyle: FontStyle.normal,
-    ),
-    subtitle1: TextStyle(
-      color: Color(0xffffffff),
-      fontSize: 16.0,
-      fontWeight: FontWeight.w400,
-      fontStyle: FontStyle.normal,
-    ),
-    bodyText1: TextStyle(
-      color: Color(0xffffffff),
-      fontSize: 14.0,
-      fontWeight: FontWeight.w400,
-      fontStyle: FontStyle.normal,
-    ),
-    bodyText2: TextStyle(
-      color: Color(0xffffffff),
-      fontSize: 16.0,
-      fontWeight: FontWeight.w400,
-      fontStyle: FontStyle.normal,
-    ),
-    caption: TextStyle(
-      color: Color(0xb3ffffff),
-      fontSize: 12.0,
-      fontWeight: FontWeight.w400,
-      fontStyle: FontStyle.normal,
-    ),
-    button: TextStyle(
-      color: Color(0xffffffff),
-      fontSize: 14.0,
-      fontWeight: FontWeight.w500,
-      fontStyle: FontStyle.normal,
-    ),
-    subtitle2: TextStyle(
-      color: Color(0xffffffff),
-      fontSize: 14.0,
-      fontWeight: FontWeight.w500,
-      fontStyle: FontStyle.normal,
-    ),
-    overline: TextStyle(
-      color: Color(0xffffffff),
-      fontSize: 10.0,
-      fontWeight: FontWeight.w400,
-      fontStyle: FontStyle.normal,
-    ),
-  ),
-  inputDecorationTheme: InputDecorationTheme(
+  inputDecorationTheme: const InputDecorationTheme(
     labelStyle: TextStyle(
       color: Color(0xdd000000),
       fontSize: 16.0,
@@ -413,22 +318,17 @@ final ThemeData iceTheme = ThemeData(
       borderRadius: BorderRadius.all(Radius.circular(4.0)),
     ),
   ),
-  iconTheme: IconThemeData(
+  iconTheme: const IconThemeData(
     color: Color(0xdd000000),
     opacity: 1.0,
     size: 24.0,
   ),
-  primaryIconTheme: IconThemeData(
+  primaryIconTheme: const IconThemeData(
     color: Color(0xffffffff),
     opacity: 1.0,
     size: 24.0,
   ),
-  accentIconTheme: IconThemeData(
-    color: Color(0xffffffff),
-    opacity: 1.0,
-    size: 24.0,
-  ),
-  sliderTheme: SliderThemeData(
+  sliderTheme: const SliderThemeData(
     activeTrackColor: Color(0xff162845),
     inactiveTrackColor: Color(0x3d162845),
     disabledActiveTrackColor: Color(0x52254374),
@@ -451,12 +351,12 @@ final ThemeData iceTheme = ThemeData(
       fontStyle: FontStyle.normal,
     ),
   ),
-  tabBarTheme: TabBarTheme(
+  tabBarTheme: const TabBarTheme(
     indicatorSize: TabBarIndicatorSize.tab,
     labelColor: Color(0xffffffff),
     unselectedLabelColor: Color(0xb2ffffff),
   ),
-  chipTheme: ChipThemeData(
+  chipTheme: const ChipThemeData(
     backgroundColor: Color(0xffb3b4b3),
     brightness: Brightness.light,
     deleteIconColor: Color(0xde000000),
@@ -484,7 +384,7 @@ final ThemeData iceTheme = ThemeData(
       style: BorderStyle.none,
     )),
   ),
-  dialogTheme: DialogTheme(
+  dialogTheme: const DialogTheme(
       shape: RoundedRectangleBorder(
     side: BorderSide(
       color: Color(0xff000000),
@@ -493,4 +393,19 @@ final ThemeData iceTheme = ThemeData(
     ),
     borderRadius: BorderRadius.all(Radius.circular(0.0)),
   )),
+  colorScheme: ColorScheme.fromSwatch(
+      primarySwatch: const MaterialColor(4279642181, {
+    50: Color(0xffecf1f9),
+    100: Color(0xffd8e2f3),
+    200: Color(0xffb2c6e6),
+    300: Color(0xff8ba9da),
+    400: Color(0xff648dce),
+    500: Color(0xff3e70c1),
+    600: Color(0xff315a9b),
+    700: Color(0xff254374),
+    800: Color(0xff192d4d),
+    900: Color(0xff0c1627)
+  })).copyWith(
+    secondary: const Color(0xff3e70c1),
+  ),
 );

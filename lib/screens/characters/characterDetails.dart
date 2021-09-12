@@ -27,70 +27,70 @@ class CharacterDetails extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
-                Text('Born'),
+                const Text('Born'),
                 Text(details!.born == '' ? 'N/A' : details!.born!)
               ],
             ),
-            SizedBox(
+            const SizedBox(
               height: 10,
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
-                Text('Died'),
+                const Text('Died'),
                 Text(details!.died == '' ? 'N/A' : details!.died!)
               ],
             ),
-            SizedBox(
+            const SizedBox(
               height: 10,
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
-                Text('Gender'),
+                const Text('Gender'),
                 Text(details!.gender == '' ? 'N/A' : details!.gender!)
               ],
             ),
-            SizedBox(
+            const SizedBox(
               height: 10,
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
-                Text('Culture'),
+                const Text('Culture'),
                 Text(details!.culture == '' ? 'N/A' : details!.culture!)
               ],
             ),
-            SizedBox(
+            const SizedBox(
               height: 10,
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Text('Titles'),
+                const Text('Titles'),
                 Text(details!.titles!.first == ''
                     ? 'N/A'
                     : details!.titles!.first),
               ],
             ),
-            SizedBox(
+            const SizedBox(
               height: 10,
             ),
             Row(
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text('Alias'),
+                const Text('Alias'),
                 Text(details!.aliases!.first == ''
                     ? 'N/A'
                     : details!.aliases!.first)
               ],
             ),
-            SizedBox(
+            const SizedBox(
               height: 10,
             ),
             // Row(
@@ -102,9 +102,9 @@ class CharacterDetails extends StatelessWidget {
             //   height: 10,
             // ),
 
-            Text('House Allegiances'),
+            const Text('House Allegiances'),
             details!.allegiances!.isEmpty
-                ? Text('No House Allegiance')
+                ? const Text('No House Allegiance')
                 : Consumer(
                     builder: (context, watch, child) {
                       var housesAlliedTo =
@@ -128,10 +128,10 @@ class CharacterDetails extends StatelessWidget {
                       );
                     },
                   ),
-            SizedBox(
+            const SizedBox(
               height: 10,
             ),
-            Text('Book Appearences'),
+            const Text('Book Appearences'),
             Consumer(builder: (context, watch, child) {
               var booksAppeared = watch(allBooksFuture).data!.value;
               return Wrap(
