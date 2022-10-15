@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
 final ThemeData iceTheme = ThemeData(
+  useMaterial3: true,
   visualDensity: VisualDensity.adaptivePlatformDensity,
   brightness: Brightness.light,
   primaryColor: const Color(0xff162845),
-  primaryColorBrightness: Brightness.dark,
   primaryColorLight: const Color(0xffd8e2f3),
   primaryColorDark: const Color(0xff254374),
   canvasColor: const Color(0xfff8fcfc),
@@ -44,9 +44,7 @@ final ThemeData iceTheme = ThemeData(
     splashColor: Color(0x1f000000),
     colorScheme: ColorScheme(
       primary: Color(0xff162845),
-      primaryVariant: Color(0xff254374),
       secondary: Color(0xff3e70c1),
-      secondaryVariant: Color(0xff254374),
       surface: Color(0xffffffff),
       background: Color(0xffb2c6e6),
       error: Color(0xffd32f2f),

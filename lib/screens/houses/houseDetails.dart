@@ -17,7 +17,7 @@ class HouseDetails extends StatelessWidget {
         ),
       ),
       body: SingleChildScrollView(
-        padding: const EdgeInsets.all(10),
+        padding: const EdgeInsets.all(5),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
@@ -29,9 +29,7 @@ class HouseDetails extends StatelessWidget {
                 Text(details!.region == '' ? 'N/A' : details!.region!)
               ],
             ),
-            const SizedBox(
-              height: 10,
-            ),
+            const SizedBox(height: 10),
             Row(
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -51,9 +49,7 @@ class HouseDetails extends StatelessWidget {
                 Text(details!.founded == '' ? 'N/A' : details!.founded!)
               ],
             ),
-            const SizedBox(
-              height: 10,
-            ),
+            const SizedBox(height: 10),
             // Row(
             //   crossAxisAlignment: CrossAxisAlignment.center,
             //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -75,9 +71,7 @@ class HouseDetails extends StatelessWidget {
                     : details!.titles!.first)
               ],
             ),
-            const SizedBox(
-              height: 10,
-            ),
+            const SizedBox(height: 10),
             Row(
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -88,26 +82,20 @@ class HouseDetails extends StatelessWidget {
                     : details!.seats!.first)
               ],
             ),
-            Divider(
-              height: 1,
-              color: Theme.of(context).primaryColorDark,
-            ),
-            const SizedBox(
-              height: 10,
-            ),
+            const SizedBox(height: 10),
             Text(
-              'Sworn members to the house',
-              style: Theme.of(context).textTheme.headline6,
+              'Sworn members to ${details!.name!}',
+              style: Theme.of(context).textTheme.headlineSmall,
             ),
             Consumer(
-              builder: (context, watch, child) {
+              builder: (context, ref, child) {
                 var swornMembers =
-                    watch(characterPaginationController).characters;
+                    ref.watch(characterPaginationController).characters;
                 final paginationController =
-                    watch(characterPaginationController.notifier);
+                    ref.watch(characterPaginationController.notifier);
                 return Wrap(
-                  spacing: 6,
-                  runSpacing: 6,
+                  spacing: 4,
+                  runSpacing: 4,
                   children: List<Widget>.generate(
                     details!.swornMembers!.length,
                     (index) {

@@ -7,9 +7,10 @@ import '../moreScreen.dart';
 
 class CharactersScreen extends ConsumerWidget {
   @override
-  Widget build(BuildContext context, ScopedReader watch) {
-    final paginationController = watch(characterPaginationController.notifier);
-    final paginationState = watch(characterPaginationController);
+  Widget build(BuildContext context, WidgetRef ref) {
+    final paginationController =
+        ref.watch(characterPaginationController.notifier);
+    final paginationState = ref.watch(characterPaginationController);
     return Scaffold(
         appBar: AppBar(
           centerTitle: true,
@@ -38,36 +39,39 @@ class CharactersScreen extends ConsumerWidget {
             //           ));
             //     }),
             IconButton(
-                icon: const Icon(Icons.settings_sharp),
+                icon: const Icon(Icons.info_outline),
                 onPressed: () => Navigator.push(
                     context, MaterialPageRoute(builder: (_) => MoreScreen()))),
           ],
         ),
         body: Consumer(builder: (context, watch, child) {
-          return RefreshIndicator(
-            onRefresh: () =>
-                context.refresh(characterPaginationController).getCharacters(),
-            child: ListView.builder(
-              itemCount: paginationState.characters!.length,
-              itemBuilder: (BuildContext context, int index) {
-                paginationController.handleScrollWithIndex(index);
-                var character = paginationState.characters![index];
-                return Card(
-                  child: ListTile(
-                    title: Text(character.name!.isNotEmpty
-                        ? character.name!
-                        : character.aliases!.first),
-                    subtitle: Text(character.culture ?? ''),
-                    onTap: () => Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (_) => CharacterDetails(
-                                  details: character,
-                                ),
-                            fullscreenDialog: true)),
-                  ),
-                );
-              },
+          return Scrollbar(
+            child: RefreshIndicator(
+              onRefresh: () => ref
+                  .refresh(characterPaginationController.notifier)
+                  .getCharacters(),
+              child: ListView.builder(
+                itemCount: paginationState.characters!.length,
+                itemBuilder: (BuildContext context, int index) {
+                  paginationController.handleScrollWithIndex(index);
+                  var character = paginationState.characters![index];
+                  return Card(
+                    child: ListTile(
+                      title: Text(character.name!.isNotEmpty
+                          ? character.name!
+                          : character.aliases!.first),
+                      subtitle: Text(character.culture ?? ''),
+                      onTap: () => Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (_) => CharacterDetails(
+                                    details: character,
+                                  ),
+                              fullscreenDialog: true)),
+                    ),
+                  );
+                },
+              ),
             ),
           );
         }));

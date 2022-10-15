@@ -6,7 +6,7 @@ import 'package:get_it/get_it.dart';
 
 final housesPaginationController =
     StateNotifierProvider<HousesPaginationController, HousesPagination>((ref) {
-  final housePaginationService = ref.read(allHousesFuture!);
+  final housePaginationService = ref.read(allHousesFuture);
   return HousesPaginationController(housePaginationService);
 });
 
@@ -35,7 +35,7 @@ class HousesPaginationController extends StateNotifier<HousesPagination> {
   final _housesService = GetIt.instance.get<IceFireApi>();
 
   HousesPaginationController(
-    _housesService, [
+    housesService, [
     HousesPagination? state,
   ]) : super(state ?? HousesPagination.initial()) {
     getHouses();

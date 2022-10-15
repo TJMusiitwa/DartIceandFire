@@ -6,22 +6,25 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class BooksScreen extends ConsumerWidget {
   @override
-  Widget build(BuildContext context, ScopedReader watch) {
-    var booksData = watch(allBooksFuture);
+  Widget build(BuildContext context, WidgetRef ref) {
+    var booksData = ref.watch(allBooksFuture);
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
         title: const Text('Books'),
         actions: [
           IconButton(
-              icon: const Icon(Icons.settings_sharp),
+              icon: const Icon(Icons.info_outline),
               onPressed: () => Navigator.push(
                   context, MaterialPageRoute(builder: (_) => MoreScreen()))),
         ],
       ),
       body: booksData.when(
         data: (value) => RefreshIndicator(
-          onRefresh: () => context.refresh(allBooksFuture),
+          onRefresh: () {
+            ref.invalidate(allBooksFuture);
+            return ref.refresh(allBooksFuture.future);
+          },
           child: ListView.builder(
             itemCount: value.length,
             itemBuilder: (BuildContext context, int index) {
@@ -31,6 +34,7 @@ class BooksScreen extends ConsumerWidget {
                   title: Text(book.name!),
                   subtitle: Text(
                       'Released:${book.released.toString().split(' ')[0]}\nPages:${book.numberOfPages.toString()}'),
+                  isThreeLine: true,
                   onTap: () => Navigator.push(
                       context,
                       MaterialPageRoute(
@@ -43,7 +47,8 @@ class BooksScreen extends ConsumerWidget {
             },
           ),
         ),
-        loading: () => const Center(child: CircularProgressIndicator()),
+        loading: () =>
+            const Center(child: CircularProgressIndicator.adaptive()),
         error: (error, stack) => Center(child: Text(error.toString())),
       ),
     );

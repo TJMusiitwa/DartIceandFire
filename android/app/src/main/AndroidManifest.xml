@@ -2,7 +2,7 @@
     package="com.jonathanmusiitwa.dart_ice_and_fire">
     <uses-permission android:name="android.permission.INTERNET" />
     <application
-        android:name="io.flutter.app.FlutterApplication"
+        android:name="${applicationName}"
         android:label="Ice and Fire"
         android:icon="@mipmap/ic_launcher">
         <activity

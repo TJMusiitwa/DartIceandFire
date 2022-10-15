@@ -4,8 +4,10 @@ import 'package:dart_ice_and_fire/screens/houses/housesScreen.dart';
 import 'package:flutter/material.dart';
 
 class IceAndFireNav extends StatefulWidget {
+  const IceAndFireNav({super.key});
+
   @override
-  _IceAndFireNavState createState() => _IceAndFireNavState();
+  State<IceAndFireNav> createState() => _IceAndFireNavState();
 }
 
 class _IceAndFireNavState extends State<IceAndFireNav> {
@@ -22,7 +24,7 @@ class _IceAndFireNavState extends State<IceAndFireNav> {
           BottomNavigationBarItem(
               icon: Icon(Icons.house_sharp), label: 'Houses'),
           BottomNavigationBarItem(
-              icon: Icon(Icons.library_books_sharp), label: 'Books'),
+              icon: Icon(Icons.auto_stories_sharp), label: 'Books'),
         ],
         currentIndex: _currentScreen,
         type: BottomNavigationBarType.fixed,

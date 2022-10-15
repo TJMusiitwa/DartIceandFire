@@ -69,14 +69,14 @@ class BookDetails extends StatelessWidget {
               ),
               Text(
                 'Book Characters',
-                style: Theme.of(context).textTheme.headline6,
+                style: Theme.of(context).textTheme.headlineSmall,
               ),
               Consumer(
-                builder: (context, watch, child) {
+                builder: (context, ref, child) {
                   var charactersAppeared =
-                      watch(characterPaginationController).characters;
+                      ref.watch(characterPaginationController).characters;
                   final paginationController =
-                      watch(characterPaginationController.notifier);
+                      ref.watch(characterPaginationController.notifier);
                   return Wrap(
                     spacing: 6,
                     runSpacing: 6,

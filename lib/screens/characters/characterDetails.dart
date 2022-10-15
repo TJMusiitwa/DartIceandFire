@@ -101,16 +101,19 @@ class CharacterDetails extends StatelessWidget {
             // SizedBox(
             //   height: 10,
             // ),
-
-            const Text('House Allegiances'),
+            Text(
+              'House Allegiances',
+              style: Theme.of(context).textTheme.headlineSmall,
+            ),
+            const Divider(),
             details!.allegiances!.isEmpty
                 ? const Text('No House Allegiance')
                 : Consumer(
-                    builder: (context, watch, child) {
+                    builder: (context, ref, child) {
                       var housesAlliedTo =
-                          watch(housesPaginationController).houses;
+                          ref.watch(housesPaginationController).houses;
                       final paginationController =
-                          watch(housesPaginationController.notifier);
+                          ref.watch(housesPaginationController.notifier);
 
                       return Wrap(
                         spacing: 6,
@@ -128,21 +131,27 @@ class CharacterDetails extends StatelessWidget {
                       );
                     },
                   ),
-            const SizedBox(
-              height: 10,
+            const SizedBox(height: 10),
+            Text(
+              'Book Appearences',
+              style: Theme.of(context).textTheme.headlineSmall,
             ),
-            const Text('Book Appearences'),
-            Consumer(builder: (context, watch, child) {
-              var booksAppeared = watch(allBooksFuture).data!.value;
-              return Wrap(
-                spacing: 6,
-                runSpacing: 6,
-                runAlignment: WrapAlignment.start,
-                children: List<Widget>.generate(
-                  details!.books!.length,
-                  (index) => Chip(label: Text(booksAppeared[index].name!)),
-                ),
-              );
+            const Divider(),
+            Consumer(builder: (context, ref, child) {
+              return ref.watch(allBooksFuture).when(
+                  data: (booksAppeared) => Wrap(
+                        spacing: 6,
+                        runSpacing: 6,
+                        runAlignment: WrapAlignment.start,
+                        children: List<Widget>.generate(
+                          details!.books!.length,
+                          (index) =>
+                              Chip(label: Text(booksAppeared[index].name!)),
+                        ),
+                      ),
+                  error: (_, __) =>
+                      const Center(child: Text('Unable to load books')),
+                  loading: () => const CircularProgressIndicator.adaptive());
             }),
           ],
         ),

@@ -1,6 +1,6 @@
 # Dart ❄️ Ice and 🔥 Fire
 
-![GitHub repo size](https://img.shields.io/github/repo-size/TJMusiitwa/DartIceandFire?style=plastic) ![Flutter Version](https://img.shields.io/badge/Flutter-1.22.5-blue?style=plastic) ![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/TJMusiitwa/DartIceandFire?style=plastic)
+![GitHub repo size](https://img.shields.io/github/repo-size/TJMusiitwa/DartIceandFire?style=plastic) ![Flutter Version](https://img.shields.io/badge/Flutter-3.3.2-blue?style=plastic) ![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/TJMusiitwa/DartIceandFire?style=plastic)
 ## About
 This is a Flutter project that gives fans of the Ice and Fire Universe access to data about all the Books, Characters and Houses.
  An API of Ice And Fire is the world's greatest source for quantified and structured data from the universe of Ice and Fire (and the HBO series Game of Thrones). 

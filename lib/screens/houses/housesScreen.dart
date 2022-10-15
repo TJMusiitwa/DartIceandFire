@@ -7,9 +7,9 @@ import 'houseDetails.dart';
 
 class HousessScreen extends ConsumerWidget {
   @override
-  Widget build(BuildContext context, ScopedReader watch) {
-    final paginationController = watch(housesPaginationController.notifier);
-    final paginationState = watch(housesPaginationController);
+  Widget build(BuildContext context, WidgetRef ref) {
+    final paginationController = ref.watch(housesPaginationController.notifier);
+    final paginationState = ref.watch(housesPaginationController);
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
@@ -17,7 +17,7 @@ class HousessScreen extends ConsumerWidget {
         actions: [
           //IconButton(icon: Icon(Icons.search_sharp), onPressed: () {}),
           IconButton(
-              icon: const Icon(Icons.settings_sharp),
+              icon: const Icon(Icons.info_outline),
               onPressed: () => Navigator.push(
                   context, MaterialPageRoute(builder: (_) => MoreScreen()))),
         ],
@@ -26,32 +26,33 @@ class HousessScreen extends ConsumerWidget {
         builder: (context, watch, child) {
           if (paginationState.houses!.isEmpty) {
             return const Center(
-              child: CircularProgressIndicator(),
+              child: CircularProgressIndicator.adaptive(),
             );
           }
-
-          return RefreshIndicator(
-            onRefresh: () =>
-                context.refresh(housesPaginationController).getHouses(),
-            child: ListView.builder(
-              itemCount: paginationState.houses!.length,
-              itemBuilder: (BuildContext context, int index) {
-                paginationController.handleScrollWithIndex(index);
-                var house = paginationState.houses![index];
-                return Card(
-                  child: ListTile(
-                    title: Text(house.name!),
-                    subtitle: Text(house.region ?? ''),
-                    onTap: () => Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (_) => HouseDetails(
-                                  details: house,
-                                ),
-                            fullscreenDialog: true)),
-                  ),
-                );
-              },
+          return Scrollbar(
+            child: RefreshIndicator(
+              onRefresh: () =>
+                  ref.refresh(housesPaginationController.notifier).getHouses(),
+              child: ListView.builder(
+                itemCount: paginationState.houses!.length,
+                itemBuilder: (BuildContext context, int index) {
+                  paginationController.handleScrollWithIndex(index);
+                  var house = paginationState.houses![index];
+                  return Card(
+                    child: ListTile(
+                      title: Text(house.name!),
+                      subtitle: Text(house.region ?? ''),
+                      onTap: () => Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (_) => HouseDetails(
+                                    details: house,
+                                  ),
+                              fullscreenDialog: true)),
+                    ),
+                  );
+                },
+              ),
             ),
           );
         },

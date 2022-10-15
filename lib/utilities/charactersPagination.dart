@@ -7,7 +7,7 @@ import 'package:get_it/get_it.dart';
 final characterPaginationController =
     StateNotifierProvider<CharacterPaginationController, CharactersPagination>(
         (ref) {
-  final characterPaginationService = ref.read(allCharactersFuture!);
+  final characterPaginationService = ref.read(allCharactersFuture);
   return CharacterPaginationController(characterPaginationService);
 });
 
@@ -35,7 +35,7 @@ class CharacterPaginationController
     extends StateNotifier<CharactersPagination> {
   final _charactersService = GetIt.I.get<IceFireApi>();
   CharacterPaginationController(
-    _charactersService, [
+    charactersService, [
     CharactersPagination? state,
   ]) : super(state ?? CharactersPagination.initial()) {
     getCharacters();
