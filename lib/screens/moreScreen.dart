@@ -62,12 +62,12 @@ class MoreScreen extends StatelessWidget {
                       mainAxisSize: MainAxisSize.min,
                       children: <Widget>[
                         Text('Created by Jonathan Thomas Musiitwa',
-                            style: Theme.of(context).textTheme.overline),
+                            style: Theme.of(context).textTheme.labelSmall),
                         Text(
                           'Built with ❤ in Flutter ',
                           style: Theme.of(context)
                               .textTheme
-                              .overline!
+                              .labelSmall!
                               .copyWith(fontSize: 20),
                         ),
                       ],

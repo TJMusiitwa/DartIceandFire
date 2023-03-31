@@ -9,21 +9,16 @@ final ThemeData iceTheme = ThemeData(
   primaryColorDark: const Color(0xff254374),
   canvasColor: const Color(0xfff8fcfc),
   scaffoldBackgroundColor: const Color(0xfff8fcfc),
-  bottomAppBarColor: const Color(0xffffffff),
   cardColor: const Color(0xffffffff),
   dividerColor: const Color(0x1f000000),
   highlightColor: const Color(0x66bcbcbc),
   splashColor: const Color(0x66c8c8c8),
-  selectedRowColor: const Color(0xfff5f5f5),
   unselectedWidgetColor: const Color(0x8a000000),
   disabledColor: const Color(0x61000000),
-  toggleableActiveColor: const Color(0xff315a9b),
   secondaryHeaderColor: const Color(0xffecf1f9),
-  backgroundColor: const Color(0xffb2c6e6),
   dialogBackgroundColor: const Color(0xffffffff),
   indicatorColor: const Color(0xff3e70c1),
   hintColor: const Color(0x8a000000),
-  errorColor: const Color(0xffd32f2f),
   buttonTheme: const ButtonThemeData(
     textTheme: ButtonTextTheme.primary,
     minWidth: 88.0,
@@ -57,79 +52,79 @@ final ThemeData iceTheme = ThemeData(
     ),
   ),
   textTheme: const TextTheme(
-    headline1: TextStyle(
+    displayLarge: TextStyle(
       color: Color(0x8a000000),
       fontSize: 96.0,
       fontWeight: FontWeight.w300,
       fontStyle: FontStyle.normal,
     ),
-    headline2: TextStyle(
+    displayMedium: TextStyle(
       color: Color(0x8a000000),
       fontSize: 60.0,
       fontWeight: FontWeight.w300,
       fontStyle: FontStyle.normal,
     ),
-    headline3: TextStyle(
+    displaySmall: TextStyle(
       color: Color(0x8a000000),
       fontSize: 48.0,
       fontWeight: FontWeight.w400,
       fontStyle: FontStyle.normal,
     ),
-    headline4: TextStyle(
+    headlineMedium: TextStyle(
       color: Color(0x8a000000),
       fontSize: 34.0,
       fontWeight: FontWeight.w400,
       fontStyle: FontStyle.normal,
     ),
-    headline5: TextStyle(
+    headlineSmall: TextStyle(
       color: Color(0xdd000000),
       fontSize: 24.0,
       fontWeight: FontWeight.w400,
       fontStyle: FontStyle.normal,
     ),
-    headline6: TextStyle(
+    titleLarge: TextStyle(
       color: Color(0xdd000000),
       fontSize: 20.0,
       fontWeight: FontWeight.w500,
       fontStyle: FontStyle.normal,
     ),
-    subtitle1: TextStyle(
+    titleMedium: TextStyle(
       color: Color(0xdd000000),
       fontSize: 16.0,
       fontWeight: FontWeight.w400,
       fontStyle: FontStyle.normal,
     ),
-    bodyText1: TextStyle(
+    bodyLarge: TextStyle(
       color: Color(0xdd000000),
       fontSize: 14.0,
       fontWeight: FontWeight.w400,
       fontStyle: FontStyle.normal,
     ),
-    bodyText2: TextStyle(
+    bodyMedium: TextStyle(
       color: Color(0xdd000000),
       fontSize: 16.0,
       fontWeight: FontWeight.w400,
       fontStyle: FontStyle.normal,
     ),
-    caption: TextStyle(
+    bodySmall: TextStyle(
       color: Color(0x8a000000),
       fontSize: 12.0,
       fontWeight: FontWeight.w400,
       fontStyle: FontStyle.normal,
     ),
-    button: TextStyle(
+    labelLarge: TextStyle(
       color: Color(0xdd000000),
       fontSize: 14.0,
       fontWeight: FontWeight.w500,
       fontStyle: FontStyle.normal,
     ),
-    subtitle2: TextStyle(
+    titleSmall: TextStyle(
       color: Color(0xff000000),
       fontSize: 14.0,
       fontWeight: FontWeight.w500,
       fontStyle: FontStyle.normal,
     ),
-    overline: TextStyle(
+    labelSmall: TextStyle(
       color: Color(0xff000000),
       fontSize: 10.0,
       fontWeight: FontWeight.w400,
@@ -137,79 +132,79 @@ final ThemeData iceTheme = ThemeData(
     ),
   ),
   primaryTextTheme: const TextTheme(
-    headline1: TextStyle(
+    displayLarge: TextStyle(
       color: Color(0xb3ffffff),
       fontSize: 96.0,
       fontWeight: FontWeight.w300,
       fontStyle: FontStyle.normal,
     ),
-    headline2: TextStyle(
+    displayMedium: TextStyle(
       color: Color(0xb3ffffff),
       fontSize: 60.0,
       fontWeight: FontWeight.w300,
       fontStyle: FontStyle.normal,
     ),
-    headline3: TextStyle(
+    displaySmall: TextStyle(
       color: Color(0xb3ffffff),
       fontSize: 48.0,
       fontWeight: FontWeight.w400,
       fontStyle: FontStyle.normal,
     ),
-    headline4: TextStyle(
+    headlineMedium: TextStyle(
       color: Color(0xb3ffffff),
       fontSize: 34.0,
       fontWeight: FontWeight.w400,
       fontStyle: FontStyle.normal,
     ),
-    headline5: TextStyle(
+    headlineSmall: TextStyle(
       color: Color(0xffffffff),
       fontSize: 24.0,
       fontWeight: FontWeight.w400,
       fontStyle: FontStyle.normal,
     ),
-    headline6: TextStyle(
+    titleLarge: TextStyle(
       color: Color(0xffffffff),
       fontSize: 20.0,
       fontWeight: FontWeight.w500,
       fontStyle: FontStyle.normal,
     ),
-    subtitle1: TextStyle(
+    titleMedium: TextStyle(
       color: Color(0xffffffff),
       fontSize: 16.0,
       fontWeight: FontWeight.w400,
       fontStyle: FontStyle.normal,
     ),
-    bodyText1: TextStyle(
+    bodyLarge: TextStyle(
       color: Color(0xffffffff),
       fontSize: 14.0,
       fontWeight: FontWeight.w400,
       fontStyle: FontStyle.normal,
     ),
-    bodyText2: TextStyle(
+    bodyMedium: TextStyle(
       color: Color(0xffffffff),
       fontSize: 16.0,
       fontWeight: FontWeight.w400,
       fontStyle: FontStyle.normal,
     ),
-    caption: TextStyle(
+    bodySmall: TextStyle(
       color: Color(0xb3ffffff),
       fontSize: 12.0,
       fontWeight: FontWeight.w400,
       fontStyle: FontStyle.normal,
     ),
-    button: TextStyle(
+    labelLarge: TextStyle(
       color: Color(0xffffffff),
       fontSize: 14.0,
       fontWeight: FontWeight.w500,
       fontStyle: FontStyle.normal,
     ),
-    subtitle2: TextStyle(
+    titleSmall: TextStyle(
       color: Color(0xffffffff),
       fontSize: 14.0,
       fontWeight: FontWeight.w500,
       fontStyle: FontStyle.normal,
     ),
-    overline: TextStyle(
+    labelSmall: TextStyle(
       color: Color(0xffffffff),
       fontSize: 10.0,
       fontWeight: FontWeight.w400,
@@ -390,8 +385,30 @@ final ThemeData iceTheme = ThemeData(
       style: BorderStyle.none,
     ),
     borderRadius: BorderRadius.all(Radius.circular(0.0)),
-  )),
-  colorScheme: ColorScheme.fromSwatch(
+  )), checkboxTheme: CheckboxThemeData(
+ fillColor: MaterialStateProperty.resolveWith<Color?>((Set<MaterialState> states) {
+ if (states.contains(MaterialState.disabled)) { return null; }
+ if (states.contains(MaterialState.selected)) { return const Color(0xff315a9b); }
+ return null;
+ }),
+ ), radioTheme: RadioThemeData(
+ fillColor: MaterialStateProperty.resolveWith<Color?>((Set<MaterialState> states) {
+ if (states.contains(MaterialState.disabled)) { return null; }
+ if (states.contains(MaterialState.selected)) { return const Color(0xff315a9b); }
+ return null;
+ }),
+ ), switchTheme: SwitchThemeData(
+ thumbColor: MaterialStateProperty.resolveWith<Color?>((Set<MaterialState> states) {
+ if (states.contains(MaterialState.disabled)) { return null; }
+ if (states.contains(MaterialState.selected)) { return const Color(0xff315a9b); }
+ return null;
+ }),
+ trackColor: MaterialStateProperty.resolveWith<Color?>((Set<MaterialState> states) {
+ if (states.contains(MaterialState.disabled)) { return null; }
+ if (states.contains(MaterialState.selected)) { return const Color(0xff315a9b); }
+ return null;
+ }),
+ ), bottomAppBarTheme: const BottomAppBarTheme(color: Color(0xffffffff)), colorScheme: ColorScheme.fromSwatch(
       primarySwatch: const MaterialColor(4279642181, {
     50: Color(0xffecf1f9),
     100: Color(0xffd8e2f3),
@@ -405,5 +422,5 @@ final ThemeData iceTheme = ThemeData(
     900: Color(0xff0c1627)
   })).copyWith(
     secondary: const Color(0xff3e70c1),
-  ),
+  ).copyWith(background: const Color(0xffb2c6e6)).copyWith(error: const Color(0xffd32f2f)),
 );
