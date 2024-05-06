@@ -7,7 +7,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 class CharacterDetails extends StatelessWidget {
   final Characters? details;
 
-  const CharacterDetails({Key? key, this.details}) : super(key: key);
+  const CharacterDetails({super.key, this.details});
   @override
   Widget build(BuildContext context) {
     return Scaffold(

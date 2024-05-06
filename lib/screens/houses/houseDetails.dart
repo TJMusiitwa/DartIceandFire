@@ -6,7 +6,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 class HouseDetails extends StatelessWidget {
   final Houses? details;
 
-  const HouseDetails({Key? key, this.details}) : super(key: key);
+  const HouseDetails({super.key, this.details});
   @override
   Widget build(BuildContext context) {
     return Scaffold(

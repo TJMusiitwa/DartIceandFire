@@ -7,9 +7,9 @@ class MoreScreen extends StatelessWidget {
     return Scaffold(
       body: CustomScrollView(
         slivers: <Widget>[
-          SliverAppBar.medium(
+          const SliverAppBar.medium(
             centerTitle: true,
-            title: const Text('❄️ Ice and 🔥 Fire'),
+            title: Text('❄️ Ice and 🔥 Fire'),
           ),
           SliverFillRemaining(
             child: Padding(
