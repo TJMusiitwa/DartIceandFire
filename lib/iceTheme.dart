@@ -41,12 +41,10 @@ final ThemeData iceTheme = ThemeData(
       primary: Color(0xff162845),
       secondary: Color(0xff3e70c1),
       surface: Color(0xffffffff),
-      background: Color(0xffb2c6e6),
       error: Color(0xffd32f2f),
       onPrimary: Color(0xffffffff),
       onSecondary: Color(0xffffffff),
       onSurface: Color(0xff000000),
-      onBackground: Color(0xffffffff),
       onError: Color(0xffffffff),
       brightness: Brightness.light,
     ),
@@ -386,26 +384,26 @@ final ThemeData iceTheme = ThemeData(
     ),
     borderRadius: BorderRadius.all(Radius.circular(0.0)),
   )), checkboxTheme: CheckboxThemeData(
- fillColor: MaterialStateProperty.resolveWith<Color?>((Set<MaterialState> states) {
- if (states.contains(MaterialState.disabled)) { return null; }
- if (states.contains(MaterialState.selected)) { return const Color(0xff315a9b); }
+ fillColor: WidgetStateProperty.resolveWith<Color?>((Set<WidgetState> states) {
+ if (states.contains(WidgetState.disabled)) { return null; }
+ if (states.contains(WidgetState.selected)) { return const Color(0xff315a9b); }
  return null;
  }),
  ), radioTheme: RadioThemeData(
- fillColor: MaterialStateProperty.resolveWith<Color?>((Set<MaterialState> states) {
- if (states.contains(MaterialState.disabled)) { return null; }
- if (states.contains(MaterialState.selected)) { return const Color(0xff315a9b); }
+ fillColor: WidgetStateProperty.resolveWith<Color?>((Set<WidgetState> states) {
+ if (states.contains(WidgetState.disabled)) { return null; }
+ if (states.contains(WidgetState.selected)) { return const Color(0xff315a9b); }
  return null;
  }),
  ), switchTheme: SwitchThemeData(
- thumbColor: MaterialStateProperty.resolveWith<Color?>((Set<MaterialState> states) {
- if (states.contains(MaterialState.disabled)) { return null; }
- if (states.contains(MaterialState.selected)) { return const Color(0xff315a9b); }
+ thumbColor: WidgetStateProperty.resolveWith<Color?>((Set<WidgetState> states) {
+ if (states.contains(WidgetState.disabled)) { return null; }
+ if (states.contains(WidgetState.selected)) { return const Color(0xff315a9b); }
  return null;
  }),
- trackColor: MaterialStateProperty.resolveWith<Color?>((Set<MaterialState> states) {
- if (states.contains(MaterialState.disabled)) { return null; }
- if (states.contains(MaterialState.selected)) { return const Color(0xff315a9b); }
+ trackColor: WidgetStateProperty.resolveWith<Color?>((Set<WidgetState> states) {
+ if (states.contains(WidgetState.disabled)) { return null; }
+ if (states.contains(WidgetState.selected)) { return const Color(0xff315a9b); }
  return null;
  }),
  ), bottomAppBarTheme: const BottomAppBarTheme(color: Color(0xffffffff)), colorScheme: ColorScheme.fromSwatch(
@@ -422,5 +420,5 @@ final ThemeData iceTheme = ThemeData(
     900: Color(0xff0c1627)
   })).copyWith(
     secondary: const Color(0xff3e70c1),
-  ).copyWith(background: const Color(0xffb2c6e6)).copyWith(error: const Color(0xffd32f2f)),
+  ).copyWith(surface: const Color(0xffb2c6e6)).copyWith(error: const Color(0xffd32f2f)),
 );
