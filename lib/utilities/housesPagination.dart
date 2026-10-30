@@ -1,14 +1,11 @@
 import 'package:dart_ice_and_fire/models/houses.dart';
-import 'package:dart_ice_and_fire/services/iceFireAPI.dart';
-import 'package:dart_ice_and_fire/services/iceFireState.dart';
+import 'package:dart_ice_and_fire/providers.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:get_it/get_it.dart';
 
 final housesPaginationController =
-    StateNotifierProvider<HousesPaginationController, HousesPagination>((ref) {
-  final housePaginationService = ref.read(allHousesFuture);
-  return HousesPaginationController(housePaginationService);
-});
+    NotifierProvider<HousesPaginationController, HousesPagination>(
+      HousesPaginationController.new,
+    );
 
 class HousesPagination {
   final List<Houses>? houses;
@@ -16,14 +13,9 @@ class HousesPagination {
 
   HousesPagination({this.houses, this.page});
 
-  HousesPagination.initial()
-      : houses = [],
-        page = 1;
+  HousesPagination.initial() : houses = [], page = 1;
 
-  HousesPagination copyWith({
-    List<Houses>? houses,
-    int? page,
-  }) {
+  HousesPagination copyWith({List<Houses>? houses, int? page}) {
     return HousesPagination(
       houses: houses ?? this.houses,
       page: page ?? this.page,
@@ -31,24 +23,29 @@ class HousesPagination {
   }
 }
 
-class HousesPaginationController extends StateNotifier<HousesPagination> {
-  final _housesService = GetIt.instance.get<IceFireApi>();
+class HousesPaginationController extends Notifier<HousesPagination> {
+  bool _loading = false;
+  bool _hasMore = true;
 
-  HousesPaginationController(
-    housesService, [
-    HousesPagination? state,
-  ]) : super(state ?? HousesPagination.initial()) {
-    getHouses();
+  @override
+  HousesPagination build() {
+    return HousesPagination.initial();
   }
 
   Future<void> getHouses() async {
+    if (_loading || !_hasMore) return;
+    _loading = true;
     try {
-      final getHousesResponse = await _housesService.fetchHouses(state.page);
+      final getHousesResponse = await ref
+          .read(iceFireApiProvider)
+          .fetchHouses(state.page);
+      _hasMore = getHousesResponse.isNotEmpty;
       state = state.copyWith(
-          houses: [...state.houses!, ...getHousesResponse],
-          page: state.page! + 1);
-    } catch (e) {
-      rethrow;
+        houses: [...state.houses!, ...getHousesResponse],
+        page: state.page! + 1,
+      );
+    } finally {
+      _loading = false;
     }
   }
 

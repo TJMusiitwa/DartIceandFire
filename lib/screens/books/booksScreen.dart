@@ -1,55 +1,73 @@
-import 'package:dart_ice_and_fire/screens/books/bookDetails.dart';
-import 'package:dart_ice_and_fire/screens/moreScreen.dart';
-import 'package:dart_ice_and_fire/services/iceFireState.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../services/iceFireState.dart';
+import '../../widgets/archive.dart';
+import 'bookDetails.dart';
+
 class BooksScreen extends ConsumerWidget {
+  const BooksScreen({super.key});
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    var booksData = ref.watch(allBooksFuture);
+    final books = ref.watch(allBooksFuture);
     return Scaffold(
-      appBar: AppBar(
-        centerTitle: true,
-        title: const Text('Books'),
-        actions: [
-          IconButton(
-              icon: const Icon(Icons.info_outline),
-              onPressed: () => Navigator.push(
-                  context, MaterialPageRoute(builder: (_) => MoreScreen()))),
-        ],
-      ),
-      body: booksData.when(
-        data: (value) => RefreshIndicator(
-          onRefresh: () {
+      body: SafeArea(
+        child: RefreshIndicator(
+          onRefresh: () async {
             ref.invalidate(allBooksFuture);
-            return ref.refresh(allBooksFuture.future);
+            await ref.read(allBooksFuture.future);
           },
-          child: ListView.builder(
-            itemCount: value.length,
-            itemBuilder: (BuildContext context, int index) {
-              var book = value[index];
-              return Card(
-                child: ListTile(
-                  title: Text(book.name!),
-                  subtitle: Text(
-                      'Released:${book.released.toString().split(' ')[0]}\nPages:${book.numberOfPages.toString()}'),
-                  isThreeLine: true,
-                  onTap: () => Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (_) => BookDetails(
-                                details: book,
-                              ),
-                          fullscreenDialog: true)),
+          child: CustomScrollView(
+            slivers: [
+              const SliverToBoxAdapter(
+                child: ArchiveHeader(
+                  title: 'Books',
+                  subtitle: 'Explore the volumes that hold the history of this world.',
+                  chapter: '03 / THE CHRONICLES',
                 ),
-              );
-            },
+              ),
+              books.when(
+                data: (items) => items.isEmpty
+                    ? const SliverFillRemaining(
+                        child: Center(child: Text('No books found.')),
+                      )
+                    : SliverList(
+                        delegate: SliverChildBuilderDelegate((context, index) {
+                          final book = items[index];
+                          return ArchiveEntry(
+                            number: 'VOLUME / ${index + 1}',
+                            title: book.name ?? 'Unknown',
+                            subtitle: [
+                              if (book.released != null)
+                                '${book.released!.year}',
+                              if (book.numberOfPages != null)
+                                '${book.numberOfPages} pages',
+                            ].join('  ·  '),
+                            icon: Icons.menu_book_outlined,
+                            onTap: () => Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (_) => BookDetails(details: book),
+                              ),
+                            ),
+                          );
+                        }, childCount: items.length),
+                      ),
+                loading: () => const SliverFillRemaining(
+                  child: Center(child: CircularProgressIndicator()),
+                ),
+                error: (_, _) => SliverFillRemaining(
+                  child: Center(
+                    child: TextButton(
+                      onPressed: () => ref.invalidate(allBooksFuture),
+                      child: const Text('Unable to load books. Tap to retry'),
+                    ),
+                  ),
+                ),
+              ),
+            ],
           ),
         ),
-        loading: () =>
-            const Center(child: CircularProgressIndicator.adaptive()),
-        error: (error, stack) => Center(child: Text(error.toString())),
       ),
     );
   }

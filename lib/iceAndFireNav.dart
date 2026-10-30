@@ -17,21 +17,27 @@ class _IceAndFireNavState extends State<IceAndFireNav> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: screens.elementAt(_currentScreen),
-      bottomNavigationBar: BottomNavigationBar(
-        items: const [
-          BottomNavigationBarItem(
-              icon: Icon(Icons.people_alt_sharp), label: 'Characters'),
-          BottomNavigationBarItem(
-              icon: Icon(Icons.house_sharp), label: 'Houses'),
-          BottomNavigationBarItem(
-              icon: Icon(Icons.auto_stories_sharp), label: 'Books'),
+      bottomNavigationBar: NavigationBar(
+        selectedIndex: _currentScreen,
+        onDestinationSelected: (index) =>
+            setState(() => _currentScreen = index),
+        destinations: const [
+          NavigationDestination(
+            icon: Icon(Icons.person_outline),
+            selectedIcon: Icon(Icons.person),
+            label: 'Characters',
+          ),
+          NavigationDestination(
+            icon: Icon(Icons.shield_outlined),
+            selectedIcon: Icon(Icons.shield),
+            label: 'Houses',
+          ),
+          NavigationDestination(
+            icon: Icon(Icons.menu_book_outlined),
+            selectedIcon: Icon(Icons.menu_book),
+            label: 'Books',
+          ),
         ],
-        currentIndex: _currentScreen,
-        type: BottomNavigationBarType.fixed,
-        selectedItemColor: Theme.of(context).primaryColorDark,
-        unselectedItemColor: Theme.of(context).primaryColorLight,
-        onTap: (selectedScreen) =>
-            setState(() => _currentScreen = selectedScreen),
       ),
     );
   }

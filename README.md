@@ -9,6 +9,14 @@ It is built using the [An API of Ice And Fire](https://anapioficeandfire.com/) p
 
 Github link to [API Repo](https://github.com/joakimskoog/AnApiOfIceAndFire)
 
+## Screenshots
+
+Explore characters, houses and books from the world of Ice and Fire.
+
+| Characters | Houses | Books |
+|:---:|:---:|:---:|
+| ![Character index](docs/screenshots/characters.jpg) | ![House index](docs/screenshots/houses.jpg) | ![Book index](docs/screenshots/books.jpg) |
+
 ## Why build this?
 Used this project as both a chance to explore this fantastic API but also to learn how to use Riverpod, a state management solution in Flutter.
 

@@ -1,50 +1,52 @@
 import 'package:dart_ice_and_fire/models/books.dart';
 import 'package:dart_ice_and_fire/models/characters.dart';
 import 'package:dart_ice_and_fire/models/houses.dart';
-import 'package:dart_ice_and_fire/services/iceFireAPI.dart';
+import 'package:dart_ice_and_fire/providers.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:get_it/get_it.dart';
-
-IceFireApi iceFireAPI = GetIt.instance.get<IceFireApi>();
 
 //Fetching all books
-final AutoDisposeFutureProvider<List<Books>> allBooksFuture =
+final FutureProvider<List<Books>> allBooksFuture =
     FutureProvider.autoDispose<List<Books>>((ref) async {
-  ref.keepAlive();
-  return iceFireAPI.fetchBooks();
-});
+      ref.keepAlive();
+      return ref.watch(iceFireApiProvider).fetchBooks();
+    });
 
 //Fetching all houses
-final AutoDisposeFutureProvider<List<Houses>> allHousesFuture =
+final FutureProvider<List<Houses>> allHousesFuture =
     FutureProvider.autoDispose<List<Houses>>((ref) async {
-  ref.keepAlive();
-  return iceFireAPI.fetchHouses();
-});
+      ref.keepAlive();
+      return ref.watch(iceFireApiProvider).fetchHouses();
+    });
 
 //Fetching all characters
-final AutoDisposeFutureProvider<List<Characters>> allCharactersFuture =
+final FutureProvider<List<Characters>> allCharactersFuture =
     FutureProvider.autoDispose<List<Characters>>((ref) async {
-  ref.keepAlive();
-  return iceFireAPI.fetchCharacters();
-});
+      ref.keepAlive();
+      return ref.watch(iceFireApiProvider).fetchCharacters();
+    });
 
 //Fetch One Book
-final AutoDisposeFutureProviderFamily<Books, String> oneBookFuture =
-    FutureProvider.autoDispose.family<Books, String>((ref, identifier) async {
+final oneBookFuture = FutureProvider.family<Books, String>((
+  ref,
+  identifier,
+) async {
   ref.keepAlive();
-  return iceFireAPI.fetchOneBook(identifier);
+  return ref.watch(iceFireApiProvider).fetchOneBook(identifier);
 });
 
 //Fetch One House
-final AutoDisposeFutureProviderFamily<Houses, String> oneHouseFuture =
-    FutureProvider.autoDispose.family<Houses, String>((ref, identifier) async {
+final oneHouseFuture = FutureProvider.family<Houses, String>((
+  ref,
+  identifier,
+) async {
   ref.keepAlive();
-  return iceFireAPI.fetchOneHouse(identifier);
+  return ref.watch(iceFireApiProvider).fetchOneHouse(identifier);
 });
 //Fetch Character Book
-final AutoDisposeFutureProviderFamily<Characters, String> oneCharacterFuture =
-    FutureProvider.autoDispose
-        .family<Characters, String>((ref, identifier) async {
+final oneCharacterFuture = FutureProvider.family<Characters, String>((
+  ref,
+  identifier,
+) async {
   ref.keepAlive();
-  return iceFireAPI.fetchOneCharacter(identifier);
+  return ref.watch(iceFireApiProvider).fetchOneCharacter(identifier);
 });

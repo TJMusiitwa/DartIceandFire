@@ -4,9 +4,9 @@
 
 import 'dart:convert';
 
-List<Houses> housesFromJson(str) => List<Map<String, dynamic>>.from(str)
-    .map((e) => Houses.fromJson(e))
-    .toList(growable: false);
+List<Houses> housesFromJson(Iterable<dynamic> str) => List<Map<String, dynamic>>.from(
+  str,
+).map((e) => Houses.fromJson(e)).toList(growable: false);
 
 String housesToJson(List<Houses> data) =>
     json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
@@ -49,41 +49,40 @@ class Houses {
   List<String>? swornMembers;
 
   factory Houses.fromJson(Map<String, dynamic> json) => Houses(
-        url: json['url'],
-        name: json['name'],
-        region: json['region'],
-        coatOfArms: json['coatOfArms'],
-        words: json['words'],
-        titles: List<String>.from(json['titles'].map((x) => x)),
-        seats: List<String>.from(json['seats'].map((x) => x)),
-        currentLord: json['currentLord'],
-        heir: json['heir'],
-        overlord: json['overlord'],
-        founded: json['founded'],
-        founder: json['founder'],
-        diedOut: json['diedOut'],
-        ancestralWeapons:
-            List<String>.from(json['ancestralWeapons'].map((x) => x)),
-        cadetBranches: List<String>.from(json['cadetBranches'].map((x) => x)),
-        swornMembers: List<String>.from(json['swornMembers'].map((x) => x)),
-      );
+    url: json['url'],
+    name: json['name'],
+    region: json['region'],
+    coatOfArms: json['coatOfArms'],
+    words: json['words'],
+    titles: List<String>.from(json['titles'].map((x) => x)),
+    seats: List<String>.from(json['seats'].map((x) => x)),
+    currentLord: json['currentLord'],
+    heir: json['heir'],
+    overlord: json['overlord'],
+    founded: json['founded'],
+    founder: json['founder'],
+    diedOut: json['diedOut'],
+    ancestralWeapons: List<String>.from(json['ancestralWeapons'].map((x) => x)),
+    cadetBranches: List<String>.from(json['cadetBranches'].map((x) => x)),
+    swornMembers: List<String>.from(json['swornMembers'].map((x) => x)),
+  );
 
   Map<String, dynamic> toJson() => {
-        'url': url,
-        'name': name,
-        'region': region,
-        'coatOfArms': coatOfArms,
-        'words': words,
-        'titles': List<dynamic>.from(titles!.map((x) => x)),
-        'seats': List<dynamic>.from(seats!.map((x) => x)),
-        'currentLord': currentLord,
-        'heir': heir,
-        'overlord': overlord,
-        'founded': founded,
-        'founder': founder,
-        'diedOut': diedOut,
-        'ancestralWeapons': List<dynamic>.from(ancestralWeapons!.map((x) => x)),
-        'cadetBranches': List<dynamic>.from(cadetBranches!.map((x) => x)),
-        'swornMembers': List<dynamic>.from(swornMembers!.map((x) => x)),
-      };
+    'url': url,
+    'name': name,
+    'region': region,
+    'coatOfArms': coatOfArms,
+    'words': words,
+    'titles': List<dynamic>.from(titles!.map((x) => x)),
+    'seats': List<dynamic>.from(seats!.map((x) => x)),
+    'currentLord': currentLord,
+    'heir': heir,
+    'overlord': overlord,
+    'founded': founded,
+    'founder': founder,
+    'diedOut': diedOut,
+    'ancestralWeapons': List<dynamic>.from(ancestralWeapons!.map((x) => x)),
+    'cadetBranches': List<dynamic>.from(cadetBranches!.map((x) => x)),
+    'swornMembers': List<dynamic>.from(swornMembers!.map((x) => x)),
+  };
 }

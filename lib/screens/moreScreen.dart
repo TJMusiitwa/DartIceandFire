@@ -21,16 +21,16 @@ class MoreScreen extends StatelessWidget {
                     textAlign: TextAlign.justify,
                     softWrap: true,
                     textWidthBasis: TextWidthBasis.parent,
-                    style: Theme.of(context)
-                        .textTheme
-                        .bodyLarge!
-                        .copyWith(fontSize: 18),
+                    style: Theme.of(
+                      context,
+                    ).textTheme.bodyLarge!.copyWith(fontSize: 18),
                   ),
                   const SizedBox(height: 10),
                   ListTile(
                     title: const Text('An API of Ice and Fire'),
                     subtitle: const Text(
-                        'Data was sourced from the wonderful API of Ice and Fire'),
+                      'Data was sourced from the wonderful API of Ice and Fire',
+                    ),
                     trailing: IconButton(
                       icon: const Icon(Icons.launch_sharp),
                       onPressed: () =>
@@ -44,7 +44,8 @@ class MoreScreen extends StatelessWidget {
                     trailing: IconButton(
                       icon: const Icon(Icons.launch_sharp),
                       onPressed: () => launchUrlString(
-                          'https://github.com/TJMusiitwa/DartIceandFire'),
+                        'https://github.com/TJMusiitwa/DartIceandFire',
+                      ),
                     ),
                   ),
                   ListTile(
@@ -61,19 +62,20 @@ class MoreScreen extends StatelessWidget {
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
                       children: <Widget>[
-                        Text('Created by Jonathan Thomas Musiitwa',
-                            style: Theme.of(context).textTheme.labelSmall),
+                        Text(
+                          'Created by Jonathan Thomas Musiitwa',
+                          style: Theme.of(context).textTheme.labelSmall,
+                        ),
                         Text(
                           'Built with ❤ in Flutter ',
-                          style: Theme.of(context)
-                              .textTheme
-                              .labelSmall!
-                              .copyWith(fontSize: 20),
+                          style: Theme.of(
+                            context,
+                          ).textTheme.labelSmall!.copyWith(fontSize: 20),
                         ),
                       ],
                     ),
                   ),
-                  const SizedBox(height: kBottomNavigationBarHeight)
+                  const SizedBox(height: kBottomNavigationBarHeight),
                 ],
               ),
             ),

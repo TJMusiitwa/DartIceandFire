@@ -1,161 +1,106 @@
-import 'package:dart_ice_and_fire/models/characters.dart' show Characters;
-import 'package:dart_ice_and_fire/services/iceFireState.dart';
-import 'package:dart_ice_and_fire/utilities/housesPagination.dart';
 import 'package:flutter/material.dart' hide Characters;
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../models/characters.dart';
+import '../../services/iceFireState.dart';
+import '../../widgets/archive.dart';
+import '../books/bookDetails.dart';
+import '../houses/houseDetails.dart';
+
+String characterName(Characters c) => (c.name ?? '').isNotEmpty
+    ? c.name!
+    : (c.aliases ?? []).where((a) => a.isNotEmpty).firstOrNull ?? 'Unknown';
+String firstValue(List<String>? values) =>
+    (values ?? []).where((v) => v.isNotEmpty).firstOrNull ?? '';
+
 class CharacterDetails extends StatelessWidget {
   final Characters? details;
-
   const CharacterDetails({super.key, this.details});
   @override
   Widget build(BuildContext context) {
+    final c = details!;
     return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          details!.name!.isNotEmpty ? details!.name! : details!.aliases!.first,
-          overflow: TextOverflow.ellipsis,
-        ),
-      ),
+      appBar: AppBar(),
       body: SingleChildScrollView(
-        padding: const EdgeInsets.all(10),
+        padding: const EdgeInsets.fromLTRB(24, 8, 24, 40),
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: <Widget>[
-                const Text('Born'),
-                Text(details!.born == '' ? 'N/A' : details!.born!)
-              ],
+            DetailHeader(
+              category: 'Character',
+              title: characterName(c),
+              subtitle: firstValue(c.titles),
             ),
-            const SizedBox(
-              height: 10,
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: <Widget>[
-                const Text('Died'),
-                Text(details!.died == '' ? 'N/A' : details!.died!)
-              ],
-            ),
-            const SizedBox(
-              height: 10,
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: <Widget>[
-                const Text('Gender'),
-                Text(details!.gender == '' ? 'N/A' : details!.gender!)
-              ],
-            ),
-            const SizedBox(
-              height: 10,
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: <Widget>[
-                const Text('Culture'),
-                Text(details!.culture == '' ? 'N/A' : details!.culture!)
-              ],
-            ),
-            const SizedBox(
-              height: 10,
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                const Text('Titles'),
-                Text(details!.titles!.first == ''
-                    ? 'N/A'
-                    : details!.titles!.first),
-              ],
-            ),
-            const SizedBox(
-              height: 10,
-            ),
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                const Text('Alias'),
-                Text(details!.aliases!.first == ''
-                    ? 'N/A'
-                    : details!.aliases!.first)
-              ],
-            ),
-            const SizedBox(
-              height: 10,
-            ),
-            // Row(
-            //   crossAxisAlignment: CrossAxisAlignment.center,
-            //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            //   children: [Text('Allegiances'), Text(details.allegiances.first)],
-            // ),
-            // SizedBox(
-            //   height: 10,
-            // ),
-            Text(
-              'House Allegiances',
-              style: Theme.of(context).textTheme.headlineSmall,
-            ),
-            const Divider(),
-            details!.allegiances!.isEmpty
-                ? const Text('No House Allegiance')
-                : Consumer(
-                    builder: (context, ref, child) {
-                      var housesAlliedTo =
-                          ref.watch(housesPaginationController).houses;
-                      final paginationController =
-                          ref.watch(housesPaginationController.notifier);
-
-                      return Wrap(
-                        spacing: 6,
-                        runSpacing: 6,
-                        children: List<Widget>.generate(
-                          details!.allegiances!.length,
-                          (index) {
-                            paginationController.handleScrollWithIndex(index);
-                            return Chip(
-                                label: Text(housesAlliedTo![index].name == ''
-                                    ? 'N/A'
-                                    : housesAlliedTo[index].name!));
-                          },
-                        ),
-                      );
-                    },
-                  ),
-            const SizedBox(height: 10),
-            Text(
-              'Book Appearences',
-              style: Theme.of(context).textTheme.headlineSmall,
-            ),
-            const Divider(),
-            Consumer(builder: (context, ref, child) {
-              return ref.watch(allBooksFuture).when(
-                  data: (booksAppeared) => Wrap(
-                        spacing: 6,
-                        runSpacing: 6,
-                        runAlignment: WrapAlignment.start,
-                        children: List<Widget>.generate(
-                          details!.books!.length,
-                          (index) =>
-                              Chip(label: Text(booksAppeared[index].name!)),
-                        ),
-                      ),
-                  error: (_, __) =>
-                      const Center(child: Text('Unable to load books')),
-                  loading: () => const CircularProgressIndicator.adaptive());
-            }),
+            DetailRow('Born', c.born ?? ''),
+            DetailRow('Died', c.died ?? ''),
+            DetailRow('Culture', c.culture ?? ''),
+            DetailRow('Gender', c.gender ?? ''),
+            DetailRow('Alias', firstValue(c.aliases)),
+            const SizedBox(height: 24),
+            const Text('House allegiances', style: TextStyle(fontSize: 22)),
+            const SizedBox(height: 12),
+            if ((c.allegiances ?? []).isEmpty)
+              const Text('No allegiance recorded.')
+            else
+              Wrap(
+                spacing: 8,
+                runSpacing: 8,
+                children: c.allegiances!
+                    .map((url) => AllegianceChip(url: url))
+                    .toList(),
+              ),
+            const SizedBox(height: 28),
+            const Text('Book appearances', style: TextStyle(fontSize: 22)),
+            const SizedBox(height: 12),
+            if ((c.books ?? []).isEmpty)
+              const Text('No appearances recorded.')
+            else
+              Wrap(
+                spacing: 8,
+                runSpacing: 8,
+                children: c.books!.map((url) => BookChip(url: url)).toList(),
+              ),
           ],
         ),
       ),
     );
   }
+}
+
+class AllegianceChip extends ConsumerWidget {
+  final String url;
+  const AllegianceChip({super.key, required this.url});
+  @override
+  Widget build(BuildContext context, WidgetRef ref) => ref
+      .watch(oneHouseFuture(url))
+      .when(
+        data: (house) => ActionChip(
+          label: Text(house.name ?? 'Unknown'),
+          onPressed: () => Navigator.push(
+            context,
+            MaterialPageRoute(builder: (_) => HouseDetails(details: house)),
+          ),
+        ),
+        loading: () => const Chip(label: Text('Loading house')),
+        error: (_, _) => const Chip(label: Text('House unavailable')),
+      );
+}
+
+class BookChip extends ConsumerWidget {
+  final String url;
+  const BookChip({super.key, required this.url});
+  @override
+  Widget build(BuildContext context, WidgetRef ref) => ref
+      .watch(oneBookFuture(url))
+      .when(
+        data: (book) => ActionChip(
+          label: Text(book.name ?? 'Unknown'),
+          onPressed: () => Navigator.push(
+            context,
+            MaterialPageRoute(builder: (_) => BookDetails(details: book)),
+          ),
+        ),
+        loading: () => const Chip(label: Text('Loading book')),
+        error: (_, _) => const Chip(label: Text('Book unavailable')),
+      );
 }

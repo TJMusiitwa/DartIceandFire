@@ -1,79 +1,94 @@
-import 'package:dart_ice_and_fire/screens/characters/characterDetails.dart';
-import 'package:dart_ice_and_fire/utilities/charactersPagination.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../moreScreen.dart';
+import '../../utilities/charactersPagination.dart';
+import '../../widgets/archive.dart';
+import 'characterDetails.dart';
 
-class CharactersScreen extends ConsumerWidget {
+class CharactersScreen extends ConsumerStatefulWidget {
+  const CharactersScreen({super.key});
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final paginationController =
-        ref.watch(characterPaginationController.notifier);
-    final paginationState = ref.watch(characterPaginationController);
+  ConsumerState<CharactersScreen> createState() => _CharactersScreenState();
+}
+
+class _CharactersScreenState extends ConsumerState<CharactersScreen> {
+  String? error;
+  @override
+  void initState() {
+    super.initState();
+    Future.microtask(load);
+  }
+
+  Future<void> load() async {
+    try {
+      await ref.read(characterPaginationController.notifier).getCharacters();
+      if (mounted && error != null) setState(() => error = null);
+    } catch (_) {
+      if (mounted) setState(() => error = 'Unable to load characters.');
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final people = ref.watch(characterPaginationController).characters ?? [];
     return Scaffold(
-        appBar: AppBar(
-          centerTitle: true,
-          title: const Text('Characters'),
-          actions: [
-            // IconButton(
-            //     icon: Icon(Icons.search_sharp),
-            //     onPressed: () {
-            //       showSearch(
-            //           context: context,
-            //           delegate: SearchPage(
-            //             builder: (character) => ListTile(
-            //               title: Text(character.name),
-            //             ),
-            //             itemStartsWith: true,
-            //             filter: (character) =>
-            //                 [character.name, character.aliases],
-            //             items: paginationState.characters.,
-            //             searchLabel: 'Search for your favourite characters',
-            //             suggestion: Center(
-            //               child: Text('Search by name or alias'),
-            //             ),
-            //             failure: Center(
-            //               child: Text('No character found'),
-            //             ),
-            //           ));
-            //     }),
-            IconButton(
-                icon: const Icon(Icons.info_outline),
-                onPressed: () => Navigator.push(
-                    context, MaterialPageRoute(builder: (_) => MoreScreen()))),
-          ],
-        ),
-        body: Consumer(builder: (context, watch, child) {
-          return Scrollbar(
-            child: RefreshIndicator(
-              onRefresh: () => ref
-                  .refresh(characterPaginationController.notifier)
-                  .getCharacters(),
-              child: ListView.builder(
-                itemCount: paginationState.characters!.length,
-                itemBuilder: (BuildContext context, int index) {
-                  paginationController.handleScrollWithIndex(index);
-                  var character = paginationState.characters![index];
-                  return Card(
-                    child: ListTile(
-                      title: Text(character.name!.isNotEmpty
-                          ? character.name!
-                          : character.aliases!.first),
-                      subtitle: Text(character.culture ?? ''),
-                      onTap: () => Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (_) => CharacterDetails(
-                                    details: character,
-                                  ),
-                              fullscreenDialog: true)),
-                    ),
-                  );
-                },
+      body: SafeArea(
+        child: RefreshIndicator(
+          onRefresh: () async {
+            ref.invalidate(characterPaginationController);
+            await load();
+          },
+          child: CustomScrollView(
+            slivers: [
+              const SliverToBoxAdapter(
+                child: ArchiveHeader(
+                  title: 'Characters',
+                  subtitle: 'The people, names and stories of the Seven Kingdoms and beyond.',
+                  chapter: '01 / THE CHRONICLES',
+                ),
               ),
-            ),
-          );
-        }));
+              if (people.isEmpty)
+                SliverFillRemaining(
+                  hasScrollBody: false,
+                  child: Center(
+                    child: error == null
+                        ? const CircularProgressIndicator()
+                        : TextButton(
+                            onPressed: load,
+                            child: Text('$error Tap to retry'),
+                          ),
+                  ),
+                )
+              else
+                SliverList(
+                  delegate: SliverChildBuilderDelegate((context, index) {
+                    if (index == people.length - 1) {
+                      Future.microtask(load);
+                    }
+                    final person = people[index];
+                    final aliases = person.aliases ?? [];
+                    final name = (person.name ?? '').isNotEmpty
+                        ? person.name!
+                        : aliases.where((a) => a.isNotEmpty).firstOrNull ??
+                              'Unknown';
+                    return ArchiveEntry(
+                      number: 'CHARACTER / ${index + 1}',
+                      title: name,
+                      subtitle: person.culture ?? '',
+                      icon: Icons.person_outline,
+                      onTap: () => Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (_) => CharacterDetails(details: person),
+                        ),
+                      ),
+                    );
+                  }, childCount: people.length),
+                ),
+            ],
+          ),
+        ),
+      ),
+    );
   }
 }

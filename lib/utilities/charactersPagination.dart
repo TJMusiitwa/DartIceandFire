@@ -1,15 +1,11 @@
 import 'package:dart_ice_and_fire/models/characters.dart';
-import 'package:dart_ice_and_fire/services/iceFireAPI.dart';
-import 'package:dart_ice_and_fire/services/iceFireState.dart';
+import 'package:dart_ice_and_fire/providers.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:get_it/get_it.dart';
 
 final characterPaginationController =
-    StateNotifierProvider<CharacterPaginationController, CharactersPagination>(
-        (ref) {
-  final characterPaginationService = ref.read(allCharactersFuture);
-  return CharacterPaginationController(characterPaginationService);
-});
+    NotifierProvider<CharacterPaginationController, CharactersPagination>(
+      CharacterPaginationController.new,
+    );
 
 class CharactersPagination {
   final List<Characters>? characters;
@@ -17,36 +13,41 @@ class CharactersPagination {
 
   CharactersPagination({this.characters, this.page});
 
-//Initial state when the API is called initailly
-  CharactersPagination.initial()
-      : characters = [],
-        page = 1;
+  //Initial state when the API is called initailly
+  CharactersPagination.initial() : characters = [], page = 1;
 
-  CharactersPagination copyWith({
-    List<Characters>? characters,
-    int? page,
-  }) {
+  CharactersPagination copyWith({List<Characters>? characters, int? page}) {
     return CharactersPagination(
-        characters: characters ?? this.characters, page: page ?? this.page);
+      characters: characters ?? this.characters,
+      page: page ?? this.page,
+    );
   }
 }
 
-class CharacterPaginationController
-    extends StateNotifier<CharactersPagination> {
-  final _charactersService = GetIt.I.get<IceFireApi>();
-  CharacterPaginationController(
-    charactersService, [
-    CharactersPagination? state,
-  ]) : super(state ?? CharactersPagination.initial()) {
-    getCharacters();
+class CharacterPaginationController extends Notifier<CharactersPagination> {
+  bool _loading = false;
+  bool _hasMore = true;
+
+  @override
+  CharactersPagination build() {
+    return CharactersPagination.initial();
   }
 
   Future<void> getCharacters() async {
-    final getCharactersResponse =
-        await _charactersService.fetchCharacters(state.page);
-    state = state.copyWith(
+    if (_loading || !_hasMore) return;
+    _loading = true;
+    try {
+      final getCharactersResponse = await ref
+          .read(iceFireApiProvider)
+          .fetchCharacters(state.page);
+      _hasMore = getCharactersResponse.isNotEmpty;
+      state = state.copyWith(
         characters: [...state.characters!, ...getCharactersResponse],
-        page: state.page! + 1);
+        page: state.page! + 1,
+      );
+    } finally {
+      _loading = false;
+    }
   }
 
   void handleScrollWithIndex(int index) {

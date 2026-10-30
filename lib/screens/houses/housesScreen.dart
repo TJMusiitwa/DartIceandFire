@@ -1,61 +1,88 @@
-import 'package:dart_ice_and_fire/utilities/housesPagination.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../moreScreen.dart';
+import '../../utilities/housesPagination.dart';
+import '../../widgets/archive.dart';
 import 'houseDetails.dart';
 
-class HousessScreen extends ConsumerWidget {
+class HousessScreen extends ConsumerStatefulWidget {
+  const HousessScreen({super.key});
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final paginationController = ref.watch(housesPaginationController.notifier);
-    final paginationState = ref.watch(housesPaginationController);
+  ConsumerState<HousessScreen> createState() => _HousessScreenState();
+}
+
+class _HousessScreenState extends ConsumerState<HousessScreen> {
+  String? error;
+  @override
+  void initState() {
+    super.initState();
+    Future.microtask(load);
+  }
+
+  Future<void> load() async {
+    try {
+      await ref.read(housesPaginationController.notifier).getHouses();
+      if (mounted && error != null) setState(() => error = null);
+    } catch (_) {
+      if (mounted) setState(() => error = 'Unable to load houses.');
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final houses = ref.watch(housesPaginationController).houses ?? [];
     return Scaffold(
-      appBar: AppBar(
-        centerTitle: true,
-        title: const Text('Houses'),
-        actions: [
-          //IconButton(icon: Icon(Icons.search_sharp), onPressed: () {}),
-          IconButton(
-              icon: const Icon(Icons.info_outline),
-              onPressed: () => Navigator.push(
-                  context, MaterialPageRoute(builder: (_) => MoreScreen()))),
-        ],
-      ),
-      body: Consumer(
-        builder: (context, watch, child) {
-          if (paginationState.houses!.isEmpty) {
-            return const Center(
-              child: CircularProgressIndicator.adaptive(),
-            );
-          }
-          return Scrollbar(
-            child: RefreshIndicator(
-              onRefresh: () =>
-                  ref.refresh(housesPaginationController.notifier).getHouses(),
-              child: ListView.builder(
-                itemCount: paginationState.houses!.length,
-                itemBuilder: (BuildContext context, int index) {
-                  paginationController.handleScrollWithIndex(index);
-                  var house = paginationState.houses![index];
-                  return Card(
-                    child: ListTile(
-                      title: Text(house.name!),
-                      subtitle: Text(house.region ?? ''),
-                      onTap: () => Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (_) => HouseDetails(
-                                    details: house,
-                                  ),
-                              fullscreenDialog: true)),
-                    ),
-                  );
-                },
+      body: SafeArea(
+        child: RefreshIndicator(
+          onRefresh: () async {
+            ref.invalidate(housesPaginationController);
+            await load();
+          },
+          child: CustomScrollView(
+            slivers: [
+              const SliverToBoxAdapter(
+                child: ArchiveHeader(
+                  title: 'Houses',
+                  subtitle: 'Great houses and lesser houses, their seats and their words.',
+                  chapter: '02 / THE CHRONICLES',
+                ),
               ),
-            ),
-          );
-        },
+              if (houses.isEmpty)
+                SliverFillRemaining(
+                  hasScrollBody: false,
+                  child: Center(
+                    child: error == null
+                        ? const CircularProgressIndicator()
+                        : TextButton(
+                            onPressed: load,
+                            child: Text('$error Tap to retry'),
+                          ),
+                  ),
+                )
+              else
+                SliverList(
+                  delegate: SliverChildBuilderDelegate((context, index) {
+                    if (index == houses.length - 1) {
+                      Future.microtask(load);
+                    }
+                    final house = houses[index];
+                    return ArchiveEntry(
+                      number: 'HOUSE / ${index + 1}',
+                      title: house.name ?? 'Unknown',
+                      subtitle: house.region ?? '',
+                      icon: Icons.shield_outlined,
+                      onTap: () => Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (_) => HouseDetails(details: house),
+                        ),
+                      ),
+                    );
+                  }, childCount: houses.length),
+                ),
+            ],
+          ),
+        ),
       ),
     );
   }
